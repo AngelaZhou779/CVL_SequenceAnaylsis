@@ -32,4 +32,24 @@ Here, I made a trimmomatic script. I actually made 2 scripts since I was dealing
 
 The scripts are:
 
-  -
+  - trimm_A.sh
+  - trimm_B.sh
+
+Information for the scripts is the exact same except for the output file naming convention as described above and also the creation of a output log for trimm_A.sh. I later realized that this wasn't completely necessary and that the way it was written meant that for every set I ran, the timlog was overwritten.
+
+Other information of importance: 
+
+  - java program (Trimmomatic is a java program, maybe not so important)
+  - trimmomatic v.0.36 (version I used)
+  - IlluminaClip = adapter removal (I used TruSeq3-PE:2:30:10, but this is based on the library prep done for the sequences)
+      - <fasta_With_Adapters>:<seed_mismatches>:<palindrome_clipthreshold>:<simple_clip_threshold> 
+      - fastaWithAdapters: specifies the path to a fasta file containing all the adapters PCR sequences, etc
+      - seedMismatches: specifies the maximum mismatch count which will still allow a full match to be performed
+      - palindromeClipThreshold: specifies how accurate the match between the two 'adapter ligated' reads must be for PE palindrome read alignment
+      - simpleClipThreshold: specifies how accurate the match between any adapter etc. sequence must be against a read
+      - NB: I used the recommended values from "http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf"
+  - LEADING & TRAILING = 3; removal at start end end if below quality
+  - MINLEN = minimum length (36)
+  - MAXINFO = adaptive quality (balance b/w length and quality) = 0.5 (middle ground = safe bet)
+
+
