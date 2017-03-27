@@ -11,6 +11,11 @@ md5sum - c md5.txt
 ```
 This checks if the data uploaded correctly (matched set) using md5sum on the md5.txt file with the sequences (you must be the the raw sequence directory to run this). The flag "-c" reports if checksums match contents of files (OK) or doesn't match (FAILED). 
 
+# Making Directories
+This is not a necessary step, however, I like the ease of having all the directories I may need ready. Paul Knoops (bff) made the original script and I modified it for myself. Some of the things in the script are useful for later and it does keep you organized. 
+
+Script is:
+  - make_directories.sh
 
 # FastQC
 Checks for quality of the reads. Fastqc flag "-o" sends all output files to output directory. I have created a fastqc directory and a subdirectory in that for my two sets of data. Since this is a simple line of code, I ran it in screen.
@@ -48,8 +53,9 @@ Other information of importance:
       - palindromeClipThreshold: specifies how accurate the match between the two 'adapter ligated' reads must be for PE palindrome read alignment
       - simpleClipThreshold: specifies how accurate the match between any adapter etc. sequence must be against a read
       - NB: I used the recommended values from "http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf"
-  - LEADING & TRAILING = 3; removal at start end end if below quality
+  - LEADING & TRAILING = 3; removal at start and end if below quality
   - MINLEN = minimum length (36)
-  - MAXINFO = adaptive quality (balance b/w length and quality) = 0.5 (middle ground = safe bet)
+  - MAXINFO = adaptive quality (balance b/w length and quality). 40 means the shortest length which is likely to allow location in target sequence to be determined. 0.5 (middle ground = safe bet) because higher menas more read correctness and lower means longer reads
+  -NB: the order of the last bits of info (MAXINFO, MINLEN, etc.) dictates how the sequence is trimmed. Trimmomatic goes through the parameters sequentially
 
 
