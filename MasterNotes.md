@@ -15,7 +15,7 @@ This checks if the data uploaded correctly (matched set) using md5sum on the md5
 This is not a necessary step, however, I like the ease of having all the directories I may need ready. Paul Knoops (bff) made the original script and I modified it for myself. Some of the things in the script are useful for later and it does keep you organized. 
 
 Script is:
-     __make_directories.sh__
+   __make_directories.sh__
 
 # FastQC
 Checks for quality of the reads. Fastqc flag "-o" sends all output files to output directory. I have created a fastqc directory and a subdirectory in that for my two sets of data. Since this is a simple line of code, I ran it in screen.
@@ -37,9 +37,9 @@ Here, I made a trimmomatic script. I actually made 2 scripts since I was dealing
 
 The scripts are:
 
-     __trimm_A.sh__
+   __trimm_A.sh__
    
-     __trimm_B.sh__
+   __trimm_B.sh__
 
 Information for the scripts is the exact same except for the output file naming convention as described above and also the creation of a output log for trimm_A.sh. I later realized that this wasn't completely necessary and that the way it was written meant that for every set I ran, the timlog was overwritten.
 
