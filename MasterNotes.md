@@ -15,6 +15,7 @@ This checks if the data uploaded correctly (matched set) using md5sum on the md5
 This is not a necessary step, however, I like the ease of having all the directories I may need ready. Paul Knoops (bff) made the original script and I modified it for myself. Some of the things in the script are useful for later and it does keep you organized. 
 
 Script is:
+
    -__make_directories.sh__
 
 # FastQC
