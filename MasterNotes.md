@@ -29,7 +29,7 @@ The process will output two files (*fastqc.html and *fastqc.zip). The *fastqc.ht
 
 To get the fastqc to your local machine:
 ```
-scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/20161110_fastqc*_fastqc.html /Users/sarah/Documents
+scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/20161110_fastqc*_fastqc.html /Users/sarah/OneDrive/Documents/Drosophila/CVLProject/FastQC
 ```
 Basically you are secure copying from Brian's machine to some place on your local machine. You will need your password for this.
 
