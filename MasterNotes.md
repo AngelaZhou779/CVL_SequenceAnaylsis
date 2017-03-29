@@ -29,9 +29,9 @@ The process will output two files (*fastqc.html and *fastqc.zip). The *fastqc.ht
 
 To get the fastqc to your local machine:
 ```
-scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/20161110_fastqc*_fastqc.html /Users/sarah/OneDrive/Documents/Drosophila/CVLProject/FastQC
+scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/20161110_fastqc/*_fastqc.html /Users/sarah/OneDrive/Documents/Drosophila/CVLProject/FastQC/
 ```
-Basically you are secure copying from Brian's machine to some place on your local machine. You will need your password for this.
+Basically you are secure copying from Brian's machine to some place on your local machine. You will enter this code while on your local machine and will need your password for this.
 
 # Trimming Sequences
 Here, I made a trimmomatic script. I actually made 2 scripts since I was dealing with subdirectories in my raw_dir. However, I output the trimmed scripts into the same directory, trim_dir. To differentiate between the two original sets of sequences (which names were identical except for what subdirectory they were in), I labeled the outputs as either "A_${basename}" (for those coming from folder raw_dir/20161110_DNASeq_PE) or "B_${basename}" (for those coming from folder raw_dir/20161117_DNASeq_PE).
