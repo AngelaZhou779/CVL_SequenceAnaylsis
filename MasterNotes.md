@@ -21,9 +21,9 @@ Script is:
 # FastQC
 Checks for quality of the reads. Fastqc flag "-o" sends all output files to output directory. I have created a fastqc directory and a subdirectory in that for my two sets of data. Since this is a simple line of code, I ran it in screen.
 ```
-fastqc -o /home/sarahm/cvl/fastqc/20161110_fastqc /home/sarahm/cvl/raw_dir/20161110_DNASeq_PE*.fastq.gz
+fastqc -o /home/sarahm/cvl/fastqc/20161110_fastqc /home/sarahm/cvl/raw_dir/20161110_DNASeq_PE/*.fastq.gz
 
-fastqc -o /home/sarahm/cvl/fastqc/20161117_fastqc /home/sarahm/cvl/raw_dir/20161117_DNASeq_PE*.fastq.gz
+fastqc -o /home/sarahm/cvl/fastqc/20161117_fastqc /home/sarahm/cvl/raw_dir/20161117_DNASeq_PE/*.fastq.gz
 ```
 The process will output two files (*fastqc.html and *fastqc.zip). The *fastqc.html will be loaded to local machine and opened in web browser to view files. Moving to local machine also shown below while on the local machine.
 
@@ -61,3 +61,8 @@ Other information of importance:
   -NB: the order of the last bits of info (MAXINFO, MINLEN, etc.) dictates how the sequence is trimmed. Trimmomatic goes through the parameters sequentially
 
 
+# FastQC Post Trimming 
+Checking for the quality of the reads post trimming. We especially want to see if the read length has gone down too much. We'd chack that by looking in the sequence length in the FastQC files
+```
+fastqc -o /home/sarahm/cvl/fastqc/fastqc_posttrim /home/sarahm/cvl/trim_dir/*.fastq.gz
+```
