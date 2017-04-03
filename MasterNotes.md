@@ -16,7 +16,7 @@ This is not a necessary step, however, I like the ease of having all the directo
 
 Script is:
 
-   -__make_directories.sh__
+   - __make_directories.sh__
 
 # FastQC
 Checks for quality of the reads. Fastqc flag "-o" sends all output files to output directory. I have created a fastqc directory and a subdirectory in that for my two sets of data. Since this is a simple line of code, I ran it in screen.
@@ -38,9 +38,9 @@ Here, I made a trimmomatic script. I actually made 2 scripts since I was dealing
 
 The scripts are:
 
-   -__trimm_A.sh__
+   - __trimm_A.sh__
    
-   -__trimm_B.sh__
+   - __trimm_B.sh__
 
 Information for the scripts is the exact same except for the output file naming convention as described above and also the creation of a output log for trimm_A.sh. I later realized that this wasn't completely necessary and that the way it was written meant that for every set I ran, the timlog was overwritten.
 
@@ -66,3 +66,16 @@ Checking for the quality of the reads post trimming. We especially want to see i
 ```
 fastqc -o /home/sarahm/cvl/fastqc/fastqc_posttrim /home/sarahm/cvl/trim_dir/*.fastq.gz
 ```
+
+# BWA Mapping
+The script for this is:
+
+   - __bwa_map.sh__
+  
+Flags: 
+
+   - -t 8 = number of processors (threads)
+   
+   - -M = Mark shorter split hits as secondary (for Picard compatibility)
+
+All of this will end up as sam files
