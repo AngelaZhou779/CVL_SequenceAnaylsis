@@ -30,6 +30,8 @@ The process will output two files (*fastqc.html and *fastqc.zip). The *fastqc.ht
 To get the fastqc to your local machine:
 ```
 scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/20161110_fastqc/*_fastqc.html /Users/sarah/OneDrive/Documents/Drosophila/CVLProject/FastQC/
+
+scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/20161117_fastqc/*_fastqc.html /Users/sarah/OneDrive/Documents/Drosophila/CVLProject/FastQC2/
 ```
 Basically you are secure copying from Brian's machine to some place on your local machine. You will enter this code while on your local machine and will need your password for this.
 
@@ -65,6 +67,12 @@ Other information of importance:
 Checking for the quality of the reads post trimming. We especially want to see if the read length has gone down too much. We'd chack that by looking in the sequence length in the FastQC files
 ```
 fastqc -o /home/sarahm/cvl/fastqc/fastqc_posttrim /home/sarahm/cvl/trim_dir/*.fastq.gz
+```
+
+Transferring files to local machine (this code should be entered on you local machine):
+
+```
+scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/fastqc_posttrim/*_fastqc.html /Users/sarah/OneDrive/Documents/Drosophila/CVLProject/FastQC_PostTrim/
 ```
 
 # BWA Mapping
