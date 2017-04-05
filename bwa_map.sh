@@ -24,4 +24,11 @@ do
 name=${file}
 base=`basename ${name} _R1_PE.fastq.gz`
 bwa mem -t 8 -M ${ref_genome} ${trim_dir}/${base}_R1_PE.fastq.gz ${trim_dir}/${base}_R2_PE.fastq.gz > ${sam_dir}/${base}_aligned_pe.SAM
+samtools view -b -q 20 ${sam_dir}/${base}.SAM | samtools sort - ${bam_dir}/${base}
 done
+
+
+#view
+#-b outputs in bam formet
+#-q 20 means a minimum quality score of 20 is needed, skips alignments with MAPQ smaller than this
+#sort
