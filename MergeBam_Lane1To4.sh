@@ -11,7 +11,7 @@ for file in ${files[@]}
 do
 name=${file}
 base=`basename ${name} _L001_aligned_pe.bam`
-samtools merge ${merged}/${base}_merged_aligned_pe.bam \
+samtools merge ${merged}/${base}_merged_aligned.bam \
   ${bam_dir}/${base}_L001_aligned_pe.bam \
   ${bam_dir}/${base}_L001_R1_aligned_se.bam \
   ${bam_dir}/${base}_L001_R2_aligned_se.bam \
