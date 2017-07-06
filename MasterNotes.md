@@ -87,3 +87,15 @@ Flags:
    - -M = Mark shorter split hits as secondary (for Picard compatibility)
 
 All of this will end up as sam files
+
+# Merging
+There was a series of merging steps to get all the files together since we had several lanes and two days of sequencing for each replicate population. 
+
+## Merge Lanes 1 to 4 or 5 to 8
+For across lane stuff. This worked out well since the replicate pops were done across the same sets of lanes
+
+## Merge the two days
+Merging A to B
+
+## Merge the Ancestor
+The ancestor had several replicates because we sequenced 4 times as many flies (400 flies) and we called the replicate 1 through 4 even though they are actually the same population so we have a separate script to merge those. 
