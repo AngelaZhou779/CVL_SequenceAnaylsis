@@ -92,10 +92,26 @@ All of this will end up as sam files
 There was a series of merging steps to get all the files together since we had several lanes and two days of sequencing for each replicate population. 
 
 ## Merge Lanes 1 to 4 or 5 to 8
-For across lane stuff. This worked out well since the replicate pops were done across the same sets of lanes
+For across lane stuff. This worked out well since the replicate pops were done across the same sets of lanes for both days. We merge the single end stuff as well. 
+
+The scripts are :
+
+   - MergeBam_Lane1To4.sh
+   
+   - MergeBam_Lane5To8.sh
 
 ## Merge the two days
-Merging A to B
+The two different days had the same replicates but were labeled with either an A or B in the beginning. I merged those together into a single file and called it merged_all
+
+The script is:
+
+   - MergeBam_AandB.sh
 
 ## Merge the Ancestor
-The ancestor had several replicates because we sequenced 4 times as many flies (400 flies) and we called the replicate 1 through 4 even though they are actually the same population so we have a separate script to merge those. 
+The ancestor had several replicates because we sequenced 4 times as many flies (400 flies) and we called the replicates 1 through 4 even though they are actually the same population so we have a separate script to merge those. 
+
+The script is:
+
+   - MergeBam_Ancestor.sh
+   
+The one problem is that the new output is put in the same merged_all folder as the rest of the data. I'm think of moving out the old ancestor replicates to another folder so that when I do things I don't have to exclude those specifically or get it confused with the new fully merged ancestor (ANCESTOR_ALL_merged...).
