@@ -114,4 +114,21 @@ The script is:
 
    - MergeBam_Ancestor.sh
    
-The one problem is that the new output is put in the same merged_all folder as the rest of the data. I'm think of moving out the old ancestor replicates to another folder so that when I do things I don't have to exclude those specifically or get it confused with the new fully merged ancestor (ANCESTOR_ALL_merged...).
+The one problem is that the new output is put in the same merged_all folder as the rest of the data. I moved out the old ancestor replicates to another folder so that when I do things I don't have to exclude those specifically or get it confused with the new fully merged ancestor (ANCESTOR_ALL_merged...). All the separate ancestor merged replicates (which were put together into the final ANCESTOR_ALL_merged) have been moved to a folder called 'merged_all_ancestor'
+
+# Sort with Picard
+We now want to mark and remove duplicates but first with have to sort with Picard int order to complete those steps. Picard does not accept samtools sorting so we have to sort with Picard to use it for the other steps (marking and removing duplicates). We will be using SortSam from Picard Tools to sort this and prepare for marking. 
+
+Picard (http://broadinstitute.github.io/picard/index.html) 
+
+The script is:
+
+   - sortPicard.sh
+   
+The flags are:
+
+   - Xmx2g: which allocated Java 2 Gb of memory
+   
+   - SO: which is the sort order (in this case based on coordinate)
+   
+   - VALIDATION_SRINGENCY: silenced to stop Picard from reporting every issue that would ultimately be displayed that would not aid the final results for this analysis.
