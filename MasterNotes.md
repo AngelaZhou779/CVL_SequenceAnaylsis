@@ -64,7 +64,7 @@ Other information of importance:
 
 
 # FastQC Post Trimming 
-Checking for the quality of the reads post trimming. We especially want to see if the read length has gone down too much. We'd chack that by looking in the sequence length in the FastQC files
+Checking for the quality of the reads post trimming. We especially want to see if the read length has gone down too much. We'd check that by looking in the sequence length in the FastQC files
 ```
 fastqc -o /home/sarahm/cvl/fastqc/fastqc_posttrim /home/sarahm/cvl/trim_dir/*.fastq.gz
 ```
