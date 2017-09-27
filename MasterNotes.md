@@ -148,7 +148,7 @@ The flags are:
    - REMOVE_DUPLICATES=true : gets rid of any found duplicated regions
 
 # Quality Control Again
-So PoPoolatiom has this step where they want to check and see if everything if fine and dandy. Paul said he's pretty sure this is redundant. I probably agree with him. 
+So PoPoolation2 has this step where they want to check and see if everything is fine and dandy. Paul said he's pretty sure this is redundant. I probably agree with him. I guess, maybe, I don't know.
 
 The script is:
 
@@ -160,4 +160,4 @@ The flags are:
    - -F 0x0004 = remove unmapped reads
    - -b = output in the BAM format
    
-We are calling the putputs final.bam since this is the final bam file step before creating mpileup files for PoPoolation.
+We are calling the outputs final.bam since this is the final bam file step before creating mpileup files for PoPoolation2.
