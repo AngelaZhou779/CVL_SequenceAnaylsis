@@ -146,3 +146,18 @@ The flags are:
    - M: creates an output file of statistics of duplicates found
    - VALIDATION_STRINGENCY=SILENT
    - REMOVE_DUPLICATES=true : gets rid of any found duplicated regions
+
+# Quality Control Again
+So PoPoolatiom has this step where they want to check and see if everything if fine and dandy. Paul said he's pretty sure this is redundant. I probably agree with him. 
+
+The script is:
+
+   - QC.sh (for qualtiy control)
+   
+The flags are:
+
+   - -q 20 = min quality score
+   - -F 0x0004 = remove unmapped reads
+   - -b = output in the BAM format
+   
+We are calling the putputs final.bam since this is the final bam file step before creating mpileup files for PoPoolation.
