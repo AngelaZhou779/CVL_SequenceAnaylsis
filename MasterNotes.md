@@ -7,7 +7,7 @@ NB: My data is in two separate files in my raw_dir (raw data directory) since al
 # md5sum
 Note: I did not run these for my sequences. Ian got my sequences to Brian's machine and also ran md5sum. However the code is as follows
 ```
-md5sum - c md5.txt
+md5sum -c md5.txt
 ```
 This checks if the data uploaded correctly (matched set) using md5sum on the md5.txt file with the sequences (you must be the the raw sequence directory to run this). The flag "-c" reports if checksums match contents of files (OK) or doesn't match (FAILED). 
 
