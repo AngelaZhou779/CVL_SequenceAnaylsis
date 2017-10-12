@@ -88,6 +88,22 @@ Flags:
 
 All of this will end up as sam files
 
+So I actually ended up running BWA mapping and the conversion from sam to bam files in the same script because I was trying to reduce the amount of space I took up. The script below is the one I actually used for my data since there are steps within that pipe things through samtools and then remove the old sam file as you work:
+
+   - bwa_sam2bam.sh
+ 
+The flags are the same for BWA. For the smatools sam2bam conversion we are also sorting for quality above 20
+
+   - -q 20 = quality score must be 20 or above
+   
+   - -b = output is bam files?
+   
+   - -S = input is sam files?
+   
+Ian also suggested that we keep all the data including the single end data since we cut off quite a bit in not including it. So I ran a script (with the same flags as above) for the single end files
+
+   - bwa_sam2bam_se.sh
+
 # Merging
 There was a series of merging steps to get all the files together since we had several lanes and two days of sequencing for each replicate population. 
 
