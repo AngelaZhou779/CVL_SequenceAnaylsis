@@ -177,3 +177,39 @@ The flags are:
    - -b = output in the BAM format
    
 We are calling the outputs final.bam since this is the final bam file step before creating mpileup files for PoPoolation2.
+
+# GATK InDel Realignment 
+
+So there isn't that many ways to realign around indels correctly, and we obviously want to since this could impact what we are calling SNPs at certain positions around these indels. GATK is meant for handling human data with 2 chromosomes. We have an issue in that we are doing pooled sequencing (with 100 individuals = 200 chromosomes). You'll have to say you have polyploidy.
+
+   1. Need an unzipped version of reference genome (make sure unzipped -- gunzip)
+   
+   ```
+   #Made copy of the ref genome
+   cp dmel-all-chromosome-r5.57.fasta.gz dmel-all-chromosome-r5.57_2.fasta.gz
+   #unzip the second copy
+   gunzip dmel-all-chromosome-r5.57_2.fasta.gz 
+   ```
+   
+   2. Make a gatk directory (mkdir gatk_dir)
+   
+   ```
+   #in storage with the other folders
+   mkdir gatk_dir
+   ```
+   
+   3. Need to make sure the index directory has a .dict This creates a dictionary file for the ref genome with a header but no sam records (the header is only sequence records)
+   
+      - make_dict.sh
+   
+   4. Need Read Groups for GATK to run: __So far as I can tell, the read groups can be anything, they just need to be there__; Can edit them after the fact
+   
+      RGID --Read Group Identifier; for Illumina, are composed using the flowcell + lane name and number [using Lanes L001_L008 for now]
+      
+      RGLB -- DNA Preperation Library Identifier [library1 as place holder]
+      
+      RGPL - platform/technology used to produce the read [Illumina]
+      
+      RGPU -- Platform Unit; details on the sequencing unit (i.e run barcode) [None, used for practice]
+      
+      RGSM -- Sample [Using the basename which is each unique sequence]
