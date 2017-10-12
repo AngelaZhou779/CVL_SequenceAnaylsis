@@ -159,9 +159,22 @@ The script is:
    
 The flags are:
 
+   - -Xmx2g: memory?
    - M: creates an output file of statistics of duplicates found
    - VALIDATION_STRINGENCY=SILENT
    - REMOVE_DUPLICATES=true : gets rid of any found duplicated regions
+
+So my Ancestor file didn't work with this and it seem to be a memory issue. I'm attempting it again now with the following code. It is the same as the code in the script except I am just running a single line for the ancestor file which means I actually put all the variable names in directly. The important part is that I have upped the memory used by the computer to 12 instead of 2 (should have been higher anyways originally) and made a temporary directory to help with memory issues.
+
+```
+java -Xmx12g -Djava.io.tmpdir=/home/sarahm/cvl/storage/tmp -jar /usr/local/picard-tools-1.131/picard.jar MarkDuplicates \
+   I= /home/sarahm/cvl/storage/sort_dir/ANCESTOR_ALL_merged_all_aligned.sort.bam \
+   O= /home/sarahm/cvl/storage/rmd_dir/ANCESTOR_ALL_merged_all_aligned.rmd.sort.bam \
+   M= /home/sarahm/cvl/storage/rmd_dir/dupstat.txt \
+   VALIDATION_STRINGENCY=SILENT \
+   REMOVE_DUPLICATES= true \
+   TMP_DIR=/home/sarahm/cvl/storage/tmp
+```
 
 # Quality Control Again
 So PoPoolation2 has this step where they want to check and see if everything is fine and dandy. Paul said he's pretty sure this is redundant. I probably agree with him. I guess, maybe, I don't know.
