@@ -159,8 +159,8 @@ The script is:
    
 The flags are:
 
-   - -Xmx2g: memory?
-   - M: creates an output file of statistics of duplicates found
+   - Xmx2g: which allocated Java 2 Gb of memory
+   - M: creates an output file of statistics of duplicates found (but is rewritten every loop in the script so...)
    - VALIDATION_STRINGENCY=SILENT
    - REMOVE_DUPLICATES=true : gets rid of any found duplicated regions
 
