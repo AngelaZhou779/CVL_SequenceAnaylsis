@@ -193,7 +193,9 @@ We are calling the outputs final.bam since this is the final bam file step befor
 
 # GATK InDel Realignment 
 
-So there isn't that many ways to realign around indels correctly, and we obviously want to since this could impact what we are calling SNPs at certain positions around these indels. GATK is meant for handling human data with 2 chromosomes. We have an issue in that we are doing pooled sequencing (with 100 individuals = 200 chromosomes). You'll have to say you have polyploidy.
+So there isn't that many ways to realign around indels correctly, and we obviously want to since this could impact what we are calling SNPs at certain positions around these indels. GATK is meant for handling human data with 2 chromosomes. We have an issue in that we are doing pooled sequencing (with 100 individuals = 200 chromosomes). 
+
+More info about GATK Realigner found [here](https://software.broadinstitute.org/gatk/documentation/tooldocs/current/org_broadinstitute_gatk_tools_walkers_indels_IndelRealigner.php) 
 
    1. Need an unzipped version of reference genome (make sure unzipped -- gunzip)
    
@@ -227,8 +229,19 @@ So there isn't that many ways to realign around indels correctly, and we obvious
       
       RGSM -- Sample [Using the basename which is each unique sequence]
       
-      - __Script:__ gatk_readgroups.sh
+      __Script:__ 
+      
+         gatk_readgroups.sh
 
    5. Run GATK indelrealigner:
    
+      __Script:__
+      
       - gatk_indel.sh
+      
+      Flags:
+      
+      - I: input file
+      - R: reference genome
+      - o: output file
+      - T: GATK tool you will be using 
