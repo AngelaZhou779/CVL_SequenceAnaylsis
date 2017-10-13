@@ -135,7 +135,7 @@ The one problem is that the new output is put in the same merged_all folder as t
 # Sort with Picard
 We now want to mark and remove duplicates but first with have to sort with Picard int order to complete those steps. Picard does not accept samtools sorting so we have to sort with Picard to use it for the other steps (marking and removing duplicates). We will be using SortSam from Picard Tools to sort this and prepare for marking. 
 
-Picard (http://broadinstitute.github.io/picard/index.html) 
+[Picard](http://broadinstitute.github.io/picard/index.html) 
 
 The script is:
 
