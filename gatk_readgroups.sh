@@ -13,9 +13,9 @@ files=(${final}/*.bam)
 for file in ${files[@]}
 do
 name=${file}
-base=`basename ${name} .bam`
+base=`basename ${name} _merged_all_aligned.final.bam`
 
-java -jar ${pic} AddOrReplaceReadGroups I=${final}/${base}.bam \
+java -jar ${pic} AddOrReplaceReadGroups I=${final}/${base}_merged_all_aligned.final.bam \
   O=${final}/${base}_RG.bam \
   RGID=L001_L008 \
   RGLB=library1 \
