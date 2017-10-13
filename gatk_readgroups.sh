@@ -1,7 +1,7 @@
 #! /bin/bash
 
 #Variable for project:
-project_dir=/home/sarahm/cvl
+project_dir=/home/sarahm/cvl/storage
 
 #Path to Picard
 pic=/usr/local/picard-tools-1.131/picard.jar
@@ -9,7 +9,7 @@ pic=/usr/local/picard-tools-1.131/picard.jar
 #Path to .bam files
 final=${project_dir}/final_bam
 
-files=(${final}/*.bam)
+files=(${final}/*_merged_all_aligned.final.bam)
 for file in ${files[@]}
 do
 name=${file}
