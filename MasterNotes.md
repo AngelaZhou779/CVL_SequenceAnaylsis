@@ -226,3 +226,9 @@ So there isn't that many ways to realign around indels correctly, and we obvious
       RGPU -- Platform Unit; details on the sequencing unit (i.e run barcode) [None, used for practice]
       
       RGSM -- Sample [Using the basename which is each unique sequence]
+      
+      - __Script:__ gatk_readgroups.sh
+
+   5. Run GATK indelrealigner:
+   
+      - gatk_indel.sh
