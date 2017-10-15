@@ -233,7 +233,15 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
       
          gatk_readgroups.sh
 
-   5. Run GATK indelrealigner:
+   5. Index:
+   
+      __Script:__
+      
+         gatk_index.sh
+         
+      Trying to run these in parallel with a '&' at the end of the coding line in the for loop
+      
+   6. Run GATK indelrealigner:
    
       __Script:__
       
