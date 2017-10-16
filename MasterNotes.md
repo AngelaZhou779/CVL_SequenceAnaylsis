@@ -239,17 +239,23 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
       
          gatk_index.sh
          
-      Trying to run these in parallel with a '&' at the end of the coding line in the for loop
+      Trying to run these in parallel with a '&' at the end of the coding line in the for loop. It worked, but I wonder how much %CPU these are supposed to use normally. All my jobs were running but with 10%CPU max. So maybe it was all run on one processor... Or maybe that's how little indexing needs; it did only take a little bit anyways (less than half a day).
       
    6. Run GATK indelrealigner:
+      This said I need a .fai fasta reference file. I'm not sure what Paul had done for this step but I made one with the following code and I'll see if it works now
+      ```
+      samtools faidx dmel-all-chromosome-r5.57_2.fasta
+      ```
    
       __Script:__
       
-      - gatk_indel.sh
+         - gatk_indel.sh
       
       Flags:
       
-      - I: input file
-      - R: reference genome
-      - o: output file
-      - T: GATK tool you will be using 
+         - I: input file
+         - R: reference genome
+         - o: output file
+         - T: GATK tool you will be using 
+      
+      So I don't know how to parallel this script since it has two ses of commands in it. I could always separate the scripts but I decided to instead just make five separte indentical scripts except for the files they call. I split my data into sets: ancestor (this was the test to see if the script worked), cvl_down, cvl_up, gd, and laad. So there will be five script running simutaneously. Perhaps it is better to just figure out how to run this stuff in parallel for real. 
