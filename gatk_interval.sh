@@ -23,7 +23,7 @@ do
 name=${file}
 base=`basename ${name} _RG.bam`
 
-java -jar ${gatk} -I ${final_bam}/${base}_RG.bam -R ${ref_genome} \
+java -Xmx32g -jar ${gatk} -I ${final_bam}/${base}_RG.bam -R ${ref_genome} \
   -T RealignerTargetCreator \
   -o ${gatk_dir}/${base}.intervals
 
