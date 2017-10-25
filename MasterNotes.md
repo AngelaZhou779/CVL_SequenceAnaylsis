@@ -266,9 +266,11 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
 A mpileup (multiple pileup) file format has information from each sample, including chromosome name and position, coverage, reference base, the coverage, and base mapping / quality numbers. The "read base column" holds information on if the region is a match, mismatch, indel or low quality to signify variance to the reference base. This can allow for variant calling and locating variants for evolved populations.
 
    Script:
+   
       - mpileup.sh
 
    Flags:
-      -B : disable BAQ (base alignment quality) computation (which stops probabilistic realignment for potential misaligned SNPs, but some false SNPs should not affect the results for the evolved pooled populations)
-      -Q 0 : qualtiy score at 0 because we've done so many quality checks before (did quality of 20 before)
-      -f : path to reference sequence
+   
+      - B : disable BAQ (base alignment quality) computation (which stops probabilistic realignment for potential misaligned SNPs, but some false SNPs should not affect the results for the evolved pooled populations)
+      - Q 0 : qualtiy score at 0 because we've done so many quality checks before (did quality of 20 before)
+      - f : path to reference sequence
