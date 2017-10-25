@@ -249,6 +249,7 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
    
       __Script:__
       
+         - gatk_interval.sh
          - gatk_indel.sh
       
       Flags:
@@ -258,4 +259,16 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
          - o: output file
          - T: GATK tool you will be using 
       
-      So I don't know how to parallel this script since it has two ses of commands in it. I could always separate the scripts but I decided to instead just make five separte indentical scripts except for the files they call. I split my data into sets: ancestor (this was the test to see if the script worked), cvl_down, cvl_up, gd, and laad. So there will be five script running simutaneously. Perhaps it is better to just figure out how to run this stuff in parallel for real. 
+      Paul originally had the two scripts listed above as one single script. I split them into two and the first one should be run completely for files before runnign the second one. I split them up because I was having issues with being able to write to the to the disk space (later I found out that it's because the space is actually filling up on /4). I ended up deleting some intermediate files and that gave me enough space to write the files I needed for these outputs. I ran the ancestor in it's entirety cause it's so huge, then I started to run other sets of the files in groups to kinda fake parallelizing. I split my data into sets: ancestor + cvl_down (this was the test to see if the script was finally working), cvl_up, gd, and laad. So there are some specific files changes for me in my directories that aren't relevant to others.
+      
+
+# mpileup
+A mpileup (multiple pileup) file format has information from each sample, including chromosome name and position, coverage, reference base, the coverage, and base mapping / quality numbers. The "read base column" holds information on if the region is a match, mismatch, indel or low quality to signify variance to the reference base. This can allow for variant calling and locating variants for evolved populations.
+
+   Script:
+      - mpileup.sh
+
+   Flags:
+      -B : disable BAQ (base alignment quality) computation (which stops probabilistic realignment for potential misaligned SNPs, but some false SNPs should not affect the results for the evolved pooled populations)
+      -Q 0 : qualtiy score at 0 because we've done so many quality checks before (did quality of 20 before)
+      -f : path to reference sequence
