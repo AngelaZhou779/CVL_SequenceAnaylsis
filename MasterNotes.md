@@ -274,3 +274,18 @@ A mpileup (multiple pileup) file format has information from each sample, includ
       - B : disable BAQ (base alignment quality) computation (which stops probabilistic realignment for potential misaligned SNPs, but some false SNPs should not affect the results for the evolved pooled populations)
       - Q 0 : qualtiy score at 0 because we've done so many quality checks before (did quality of 20 before)
       - f : path to reference sequence
+
+# sync
+
+Making sync file immediately since my mpileup was so flipping huge (1.2TB) but should be relatively easy to remake
+
+     Script:
+     
+     - sync.sh
+      
+     Flags:
+     
+     -ea : enable assertions (not really sure what this means but the PoPoolation people use it in their [tutorial](https://sourceforge.net/p/popoolation2/wiki/Tutorial/))
+     
+     -Xmx32g : which allocated Java 32 Gb of memory
+     
