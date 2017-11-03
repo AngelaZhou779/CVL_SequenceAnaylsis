@@ -13,7 +13,8 @@ If you have uneven coverage, relative to your total coverage how do you figure o
 What is the best approach for going back and looking for indels, TEs if those are what are under selection?
  - Do you have to think about what those regions are and then look back at raw reads?
   
- - They have TEpopoolation
+ - They have TEpopoolation and TE2. What is the difference?
+
   
 What is the advantage of NEST vs. a logistic-regression approach (Paul's data)?
 
@@ -60,6 +61,7 @@ removing regions with very high numbers of reads covering it - How is the cutoff
 Related to this question, has anyone made a Drosophila melanogaster pan-genome reference (including many of the insertion and duplication polymorphism)? Would this not be a better choice as a reference for syntenic mapping?
 
 Removing SNPs with low read coverage (and thus low evidence of a polymorphic site). Since we are potentially interested in some fairly rare alleles (at least in the ancestral pool), are 2-3 reads that identify a SNP (post de-duplication in Picard obviously) enough? 
+ - S: this is before looking at freq. Is this a real polymorphism at all?
 
 # Related to QC
 
