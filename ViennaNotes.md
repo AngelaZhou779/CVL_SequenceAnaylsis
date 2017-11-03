@@ -47,3 +47,23 @@ When using two different mappers, what do you average? Where do you recombine th
  
  - What do you do in a case where one mapper shows the SNP and the other does not (just get rid of it)?
   
+
+# related to filtering
+  repeatMasker - Given that we remove reads with low MAPPING quality (i.e. post mapping), would not this take care of most issues that repeatMasker would deal with? If not, what additional things does repeatMasker take care of (and what evidence is there that it improves estimates, or reduces bias)? Also where is the optimal place in the filtering steps to utilize repeatMasker?
+
+removing SNPs near indels - Some protocols remove SNPs that are within 5bp of indels. However, if indel realignment has been used (via GATK) is this still necessary. If so, is the GATK indel realignment step still necessary? Also why within 5bp of indels? Also what is the optimal way of doing this step if necessary (VCFtools seems like it can do it). Is there a way to go back and only focus on the indels (even if there is higher uncertainty in their frequency due to mis-identification sometimes)?
+
+removing SNPs with very low frequency - How is this optimally determined, and how should it relate to both pool size and depth of sequencing coverage (i.e. average genome coverage) of the pool?
+
+removing regions with very high numbers of reads covering it - How is the cutoff for this optimally determined. Also if the main concern is that there is a duplicated local region in the samples (but not in the reference genome), could this not be fixed, by altering the reference genome to include duplicate regions? Or what if the duplicated region is polymorphic and is causative? Is it worth creating a polymorphism for the local duplicated region?
+
+Related to this question, has anyone made a Drosophila melanogaster pan-genome reference (including many of the insertion and duplication polymorphism)? Would this not be a better choice as a reference for syntenic mapping?
+
+Removing SNPs with low read coverage (and thus low evidence of a polymorphic site). Since we are potentially interested in some fairly rare alleles (at least in the ancestral pool), are 2-3 reads that identify a SNP (post de-duplication in Picard obviously) enough? 
+
+# Related to QC
+
+QC checks at each stage - Obviously there are tools like FastQC for raw reads, and SAMSTAT (or deeptools, samtools or qualimap) for SAM/BAM files. How about for checking VCF (VCFtools, Bcftools in samtools) or pileup or sync files? Any good QC tools we should be using? Advice on what to be on the look out that might be red flags?
+
+# after identifying SNPs or genes of interest
+- Besides SNPeff or Gowinda.. How much time should be spent going back to regions of interest and looking at the mapped reads in IGV (to double check that nothing is amiss, etc..). Other tools besides the standard Gene Ontology ones?
