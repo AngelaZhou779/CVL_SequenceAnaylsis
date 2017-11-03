@@ -67,3 +67,12 @@ QC checks at each stage - Obviously there are tools like FastQC for raw reads, a
 
 # after identifying SNPs or genes of interest
 - Besides SNPeff or Gowinda.. How much time should be spent going back to regions of interest and looking at the mapped reads in IGV (to double check that nothing is amiss, etc..). Other tools besides the standard Gene Ontology ones?
+
+
+# Variant caller
+
+samtools/mpileup VS CRISP VS VarScan? Any thoughts for pooled data?
+
+I assume we should be doing variant calling with all samples together (because some alleles may be very rare in some populations but not others). Best ways of doing this optimally with so many files?
+
+Also, are there preferred tools for format conversion (VCF < - > mpileup)?
