@@ -16,7 +16,7 @@ This is not a necessary step, however, I like the ease of having all the directo
 
 Script is:
 
-   - __make_directories.sh__
+   - [make_directories.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/make_directories.sh)
 
 # FastQC
 Checks for quality of the reads. Fastqc flag "-o" sends all output files to output directory. I have created a fastqc directory and a subdirectory in that for my two sets of data. Since this is a simple line of code, I ran it in screen.
@@ -40,9 +40,9 @@ Here, I made a trimmomatic script. I actually made 2 scripts since I was dealing
 
 The scripts are:
 
-   - __trimm_A.sh__
+   - [trimm_A.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/trimm_A.sh)
    
-   - __trimm_B.sh__
+   - [trimm_B.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/trimm_B.sh)
 
 Information for the scripts is the exact same except for the output file naming convention as described above and also the creation of a output log for trimm_A.sh. I later realized that this wasn't completely necessary and that the way it was written meant that for every set I ran, the timlog was overwritten.
 
@@ -78,7 +78,7 @@ scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/fastqc_posttrim/*_fastqc.htm
 # BWA Mapping
 The script for this is:
 
-   - __bwa_map.sh__
+   - [bwa_map.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/bwa_map.sh)
   
 Flags: 
 
@@ -90,7 +90,7 @@ All of this will end up as sam files
 
 So I actually ended up running BWA mapping and the conversion from sam to bam files in the same script because I was trying to reduce the amount of space I took up. The script below is the one I actually used for my data since there are steps within that pipe things through samtools and then remove the old sam file as you work:
 
-   - bwa_sam2bam.sh
+   - [bwa_sam2bam.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/bwa_sam2bam.sh)
  
 The flags are the same for BWA. For the smatools sam2bam conversion we are also sorting for quality above 20
 
@@ -102,7 +102,7 @@ The flags are the same for BWA. For the smatools sam2bam conversion we are also 
    
 Ian also suggested that we keep all the data including the single end data since we cut off quite a bit in not including it. So I ran a script (with the same flags as above) for the single end files
 
-   - bwa_sam2bam_se.sh
+   - [bwa_sam2bam_se.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/bwa_sam2bam_se.sh)
 
 # Merging
 There was a series of merging steps to get all the files together since we had several lanes and two days of sequencing for each replicate population. 
@@ -112,23 +112,23 @@ For across lane stuff. This worked out well since the replicate pops were done a
 
 The scripts are :
 
-   - MergeBam_Lane1To4.sh
+   - [MergeBam_Lane1To4.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/MergeBam_Lane1To4.sh)
    
-   - MergeBam_Lane5To8.sh
+   - [MergeBam_Lane5To8.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/MergeBam_Lane5To8.sh)
 
 ## Merge the two days
 The two different days had the same replicates but were labeled with either an A or B in the beginning. I merged those together into a single file and called it merged_all
 
 The script is:
 
-   - MergeBam_AandB.sh
+   - [MergeBam_AandB.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/MergeBam_AandB.sh)
 
 ## Merge the Ancestor
 The ancestor had several replicates because we sequenced 4 times as many flies (400 flies) and we called the replicates 1 through 4 even though they are actually the same population so we have a separate script to merge those. 
 
 The script is:
 
-   - MergeBam_Ancestor.sh
+   - [MergeBam_Ancestor.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/MergeBam_Ancestor.sh)
    
 The one problem is that the new output is put in the same merged_all folder as the rest of the data. I moved out the old ancestor replicates to another folder so that when I do things I don't have to exclude those specifically or get it confused with the new fully merged ancestor (ANCESTOR_ALL_merged...). All the separate ancestor merged replicates (which were put together into the final ANCESTOR_ALL_merged) have been moved to a folder called 'merged_all_ancestor'
 
@@ -139,7 +139,7 @@ We now want to mark and remove duplicates but first with have to sort with Picar
 
 The script is:
 
-   - sortPicard.sh
+   - [sortPicard.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/sortPicard.sh)
    
 The flags are:
 
@@ -155,7 +155,7 @@ This step removed the duplicates from our sequence data. Duplicates can come fro
 
 The script is:
 
-   - rmDupPicard.sh
+   - [rmDupPicard.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/rmDupPicard.sh)
    
 The flags are:
 
@@ -181,7 +181,7 @@ So PoPoolation2 has this step where they want to check and see if everything is 
 
 The script is:
 
-   - QC.sh (for qualtiy control)
+   - [QC.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/QC.sh) (for qualtiy control)
    
 The flags are:
 
@@ -215,7 +215,7 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
    
    3. Need to make sure the index directory has a .dict This creates a dictionary file for the ref genome with a header but no sam records (the header is only sequence records)
    
-      - make_dict.sh
+      - [make_dict.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/make_dict.sh)
    
    4. Need Read Groups for GATK to run: __So far as I can tell, the read groups can be anything, they just need to be there__; Can edit them after the fact
    
@@ -231,13 +231,13 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
       
       __Script:__ 
       
-         gatk_readgroups.sh
+         [gatk_readgroups.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/gatk_readgroups.sh)
 
    5. Index:
    
       __Script:__
       
-         gatk_index.sh
+         [gatk_index.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/gatk_index.sh)
          
       Trying to run these in parallel with a '&' at the end of the coding line in the for loop. It worked, but I wonder how much %CPU these are supposed to use normally. All my jobs were running but with 10%CPU max. So maybe it was all run on one processor... Or maybe that's how little indexing needs; it did only take a little bit anyways (less than half a day).
       
@@ -249,8 +249,8 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
    
       __Script:__
       
-         - gatk_interval.sh
-         - gatk_indel.sh
+         - [gatk_interval.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/gatk_interval.sh)
+         - [gatk_indel.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/gatk_indel.sh)
       
       Flags:
       
@@ -267,7 +267,7 @@ A mpileup (multiple pileup) file format has information from each sample, includ
 
    Script:
    
-      - mpileup.sh
+      - [mpileup.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/mpileup.sh)
 
    Flags:
    
@@ -281,7 +281,7 @@ Making sync file immediately since my mpileup was so flipping huge (1.2TB) but s
 
      Script:
      
-     - sync.sh
+     - [sync.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/sync.sh)
       
      Flags:
      
@@ -303,7 +303,9 @@ First we must make pileup files with each replicat elineage and then calculate p
 
    - f -- path to reference sequence
    
-We then need to actually get tajima's pi based on these files which will be in this script:
+We then need to actually get tajima's pi based on these files. The only issue is that you need to have a copy of PoPoolation1 on the machine.
+
+   Script:
 
    - [tajimas_pi.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/tajimas_pi.sh)
    
@@ -315,9 +317,9 @@ We then need to actually get tajima's pi based on these files which will be in t
 
    - measure [pi] -- Options include Tajima's Pi or Wattersons Theta or Tajima's D along chromosomes using a sliding window approach
 
-   - window-size [10000] -- size of the sliding window
+   - window-size [1000] -- size of the sliding window
 
-   - step-size [10000] -- how far to move along with chromosome (if step size smaller, windows will overlap)
+   - step-size [1000] -- how far to move along with chromosome (if step size smaller, windows will overlap)
 
    - min-count [2] -- minimum allele count
 
