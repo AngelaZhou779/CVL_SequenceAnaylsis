@@ -303,8 +303,16 @@ First we must make pileup files with each replicat elineage and then calculate p
 
    - f -- path to reference sequence
    
-We then need to actually get tajima's pi based on these files. The only issue is that you need to have a copy of PoPoolation1 on the machine.
+We then need to actually get tajima's pi based on these files. The only issue is that you need to have a copy of PoPoolation1 on the machine. So you'll have to go to the [website](https://sourceforge.net/projects/popoolation/?source=typ_redirect) to download it to your local machine. Then you can copy it over to Brian's machine
 
+```
+scp ~/Downloads/popoolation_1.2.2.zip sarahm@info.mcmaster.ca:/home/sarahm
+```
+Then you'll need to unzip it on Brian's machine before you work with it. Then you'll have a popoolation folder
+
+```
+unzip popoolation_1.2.2.zip
+```
    Script:
 
    - [tajimas_pi.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/tajimas_pi.sh)
