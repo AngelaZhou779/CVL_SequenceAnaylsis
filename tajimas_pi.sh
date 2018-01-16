@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Path to PoPoolation1 (Currently in Paul's Home directory)
-popoolation=/home/paul/popoolation_1.2.2
+popoolation=/home/sarahm/popoolation_1.2.2
 
 # Variable for project:
 project_dir=/home/sarahm/cvl/storage
