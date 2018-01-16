@@ -9,7 +9,7 @@ input=${project_dir}/gatk_dir
 # Path to output novoalign pileup files
 output=${project_dir}/pileup
 
-index_dir=/home/paul/episodicData/index_dir
+index_dir=/home/sarahm/cvl/index_dir
 ref_genome=${index_dir}/dmel-all-chromosome-r5.57_2.fasta
 
 files=(${input}/*_realigned.bam)
