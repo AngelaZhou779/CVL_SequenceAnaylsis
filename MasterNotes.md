@@ -289,3 +289,47 @@ Making sync file immediately since my mpileup was so flipping huge (1.2TB) but s
      
      -Xmx32g : which allocated Java 32 Gb of memory
      
+
+# Analysis with Tajimas Pi
+First we must make pileup files with each replicat elineage and then calculate pi for them. The script for creating pile-ups is
+   
+   - [pi_pileup.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/pi_pileup.sh)
+   
+   Flags:
+   
+   - B -- disable BAQ (base alignment quality) computation, helps to stop false SNPs passing through due to misalignment
+
+   - Q -- minimum base quality (already filtered for 20, default is 13, just set to 0 and not worry about it)
+
+   - f -- path to reference sequence
+   
+We then need to actually get tajima's pi based on these files which will be in this script:
+
+   - [tajimas_pi.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/tajimas_pi.sh)
+   
+   Flags:
+   
+   - input -- input pileup file
+
+   - output -- output file with Tajima's Pi calculated
+
+   - measure [pi] -- Options include Tajima's Pi or Wattersons Theta or Tajima's D along chromosomes using a sliding window approach
+
+   - window-size [10000] -- size of the sliding window
+
+   - step-size [10000] -- how far to move along with chromosome (if step size smaller, windows will overlap)
+
+   - min-count [2] -- minimum allele count
+
+   - min-coverage [4] -- minimum coverage (not important if subsampling done..)
+
+   - max-coverage [400] --maximum coverage
+
+   - min-qual [20] -- minimum base quality (already filtered for 20 multiple times)
+
+   - pool-size [120] -- number of chromosomes (So double the number of individuals per pool)
+
+   - fastq-type [sanger] -- depending on the encoding of the fastq files
+
+   - min-covered-fraction [0.5] -- minimum percentage of sites having sufficient coverage in the given window -- 0.5 from example
+   
