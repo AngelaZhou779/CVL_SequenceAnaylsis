@@ -337,9 +337,10 @@ unzip popoolation_1.2.2.zip
 
    - min-qual [20] -- minimum base quality (already filtered for 20 multiple times)
 
-   - pool-size [120] -- number of chromosomes (So double the number of individuals per pool)
+   - pool-size [200] -- number of chromosomes (So double the number of individuals per pool)
 
    - fastq-type [sanger] -- depending on the encoding of the fastq files
 
    - min-covered-fraction [0.5] -- minimum percentage of sites having sufficient coverage in the given window -- 0.5 from example
    
+I had one other issue where my pool size for my ancestor was 4x bigger than the other samples so I put the ancestor file in another directory and ran this script (all flags the same except pool size is 800) with the output directory being the same as the other files.
