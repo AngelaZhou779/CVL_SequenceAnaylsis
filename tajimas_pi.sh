@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Path to PoPoolation1 (Currently in Paul's Home directory)
+# Path to PoPoolation1 (Currently in home directory)
 popoolation=/home/sarahm/popoolation_1.2.2
 
 # Variable for project:
@@ -32,7 +32,7 @@ perl ${popoolation}/Variance-sliding.pl \
 	--min-coverage 4 \
 	--max-coverage 400 \
 	--min-qual 20 \
-	--pool-size 120 \
+	--pool-size 200 \
 	--fastq-type sanger \
 	--snp-output ${output}/${base}.snps \
 	--min-covered-fraction 0.5
