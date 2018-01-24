@@ -344,3 +344,49 @@ unzip popoolation_1.2.2.zip
    - min-covered-fraction [0.5] -- minimum percentage of sites having sufficient coverage in the given window -- 0.5 from example
    
 I had one other issue where my pool size for my ancestor was 4x bigger than the other samples so I put the ancestor file in another directory and ran this script (all flags the same except pool size is 800) with the output directory being the same as the other files.
+
+# Crisp
+Crisp is a variant caller for pooled sequence data that Paul was able to get working and I want to use for my stuff
+The script I am using is:
+
+   - [CRISP.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/CRISP.sh)
+   
+   Flags:
+   
+   - bams: must specify a list of bam files, look below for how I made mine
+	- ref: reference genome
+ 	- qvoffset: quality offset of value 33 which is for Sanger sequencing but Paul used it and said the other didn't work. I might go back and change this
+	- mbq: minimum base quality to consider a base for variant calling, default 10
+	- mmq: minimum read mapping quality to consider a read for variant calling, default 20; but another group used 10 so I kept this at 10
+ 	- minc: minimum number of reads with alternate allele required for calling a variant, default 4
+ 	- VCF: VCF file to which the variant calls will be output
+   
+The other flags and such can be found [here](https://github.com/vibansal/crisp). 
+
+So when creating a list of your bam files, you can also specify the pool size if they all differ. I did this since my ancestor has a different pool size. My little script is seen below:
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage
+
+#Path to .bam files from GATK
+input=${project_dir}/gatk_dir
+
+files=(${input}/*.bam)
+
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} .bam`
+echo "${input}/${base}.bam PS=200" >> ${input}/BAMlist.txt
+
+done
+```
+Basically I wanted to get all the file pathways written out and have the poolsizes as well. I then went in with nano and changed the poolsize only for the ancestor (which was PS=800 since it is 4x as big as the other files). 
+
+Also, you'll need to have CRISP in your folder so I downloaded it and brought it to my home folder in the code seen below which copies it to Brian's machine and then unzips it. You'll have to download it to your local machine first from this [website](https://bansal-lab.github.io/software/crisp.html)
+```
+scp CRISP-122713.tar.gz sarahm@info.mcmaster.ca:/sarahm/paul
+tar xvzf CRISP-122713.tar.gz
+```
