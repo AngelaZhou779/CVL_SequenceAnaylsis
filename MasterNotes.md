@@ -345,6 +345,12 @@ unzip popoolation_1.2.2.zip
    
 I had one other issue where my pool size for my ancestor was 4x bigger than the other samples so I put the ancestor file in another directory and ran this script (all flags the same except pool size is 800) with the output directory being the same as the other files.
 
+After I got all the files I moved them to my local computer
+```
+scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/storage/tajimas_pi/*.pi /Users/sarah/OneDrive/Documents/Drosophila/SequencingAnalysis/tajimas_pi
+```
+Then I'm going to run some R scripts that Paul has or modified
+
 # Crisp
 Crisp is a variant caller for pooled sequence data that Paul was able to get working and I want to use for my stuff
 The script I am using is:
@@ -387,6 +393,6 @@ Basically I wanted to get all the file pathways written out and have the poolsiz
 
 Also, you'll need to have CRISP in your folder so I downloaded it and brought it to my home folder in the code seen below which copies it to Brian's machine and then unzips it. You'll have to download it to your local machine first from this [website](https://bansal-lab.github.io/software/crisp.html)
 ```
-scp CRISP-122713.tar.gz sarahm@info.mcmaster.ca:/sarahm/paul
+scp CRISP-122713.tar.gz sarahm@info.mcmaster.ca:/sarahm/
 tar xvzf CRISP-122713.tar.gz
 ```
