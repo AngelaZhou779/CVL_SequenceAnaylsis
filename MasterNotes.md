@@ -343,7 +343,7 @@ unzip popoolation_1.2.2.zip
 
    - min-covered-fraction [0.5] -- minimum percentage of sites having sufficient coverage in the given window -- 0.5 from example
    
-I had one other issue where my pool size for my ancestor was 4x bigger than the other samples so I put the ancestor file in another directory and ran this script (all flags the same except pool size is 800) with the output directory being the same as the other files.
+I had one other issue where my pool size for my ancestor was 4x bigger than the other samples so I put the ancestor file in another directory and ran this script (all flags the same except pool size is 800 and the max coverage I raised to 800 as well-we had sequenced this to a higher coverage) with the output directory being the same as the other files.
 
 After I got all the files I moved them to my local computer
 ```
