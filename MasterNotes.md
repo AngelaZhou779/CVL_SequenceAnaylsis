@@ -267,7 +267,7 @@ A mpileup (multiple pileup) file format has information from each sample, includ
 
    Script:
    
-      - [mpileup.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/mpileup.sh)
+   [mpileup.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/mpileup.sh)
 
    Flags:
    
@@ -279,16 +279,17 @@ A mpileup (multiple pileup) file format has information from each sample, includ
 
 Making sync file immediately since my mpileup was so flipping huge (1.2TB) but should be relatively easy to remake
 
-     Script:
+   Script:
      
-     - [sync.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/sync.sh)
+   [sync.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/sync.sh)
       
-     Flags:
+   Flags:
      
      -ea : enable assertions (not really sure what this means but the PoPoolation people use it in their [tutorial](https://sourceforge.net/p/popoolation2/wiki/Tutorial/))
      
      -Xmx32g : which allocated Java 32 Gb of memory
-     
+
+Using the sync file and continuing on with PoPoolation analysis [here](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/PoPoolation.md)
 
 # Analysis with Tajimas Pi
 First we must make pileup files with each replicat elineage and then calculate pi for them. The script for creating pile-ups is
