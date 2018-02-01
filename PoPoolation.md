@@ -14,5 +14,5 @@ perl /usr/local/popoolation/snp-frequency-diff.pl --input /home/sarahm/cvl/stora
 # Fst 
 
 ```
-perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/gatk_dir/cvl_bwa_mapped.gatk.sync --output /home/sarahm/cvl/storage/allele_freq/cvl_bwa.fst --suppress-noninformative --min-count 3 --min-coverage 50 --max-coverage 800 --min-covered-fraction 1 --window-size 1 --step-size 1 --pool-size 500
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/gatk_dir/cvl_bwa_mapped.gatk.sync --output /home/sarahm/cvl/storage/allele_freq/cvl_bwa.fst --suppress-noninformative --min-count 3 --min-coverage 50 --max-coverage 800 --min-covered-fraction 1 --window-size 1 --step-size 1 --pool-size 200
 ```
