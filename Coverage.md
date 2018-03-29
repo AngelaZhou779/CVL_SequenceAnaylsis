@@ -76,11 +76,11 @@ I then made this script for making the histograms in R. So it goes through and g
 #! /bin/bash
 
 #Variable for project:
-project_dir=/home/sarahm/cvl/
+project_dir=/home/sarahm/cvl
 
 
 cov=${project_dir}/storage/cov_dir
-rscripts=${project_dir}/Rscripts
+rscripts=${project_dir}/scripts/Rscripts
 
 files=(${cov}/*_combined.coverage)
 for file in ${files[@]}
