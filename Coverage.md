@@ -36,3 +36,37 @@ rm -f ${cov}/${base}.coverage
 
 done
 ```
+So I decided to make these all one file again. Honestly, I remember a grep command where you could take everything specific for a file and put it into a new one. Like you could probably have done this in the previous step but I figured might as well break it up. So I should have one file for each of my samples that has the X, 2R, 2L, 3R, 3L, and 4 chromosomes.
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage
+
+
+cov=${project_dir}/cov_dir
+
+
+files=(${gatk}/*_X.coverage)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _X.coverage`
+cat ${cov}/${base}_X.coverage \
+${cov}/${base}_2R.coverage \
+${cov}/${base}_2L.coverage \
+${cov}/${base}_3R.coverage \
+${cov}/${base}_3L.coverage \
+${cov}/${base}_4.coverage > ${cov}/${base}_combined.coverage
+
+wait
+
+rm -f ${cov}/${base}_X.coverage \
+${cov}/${base}_2R.coverage \
+${cov}/${base}_2L.coverage \
+${cov}/${base}_3R.coverage \
+${cov}/${base}_3L.coverage \
+${cov}/${base}_4.coverage
+
+done
+```
