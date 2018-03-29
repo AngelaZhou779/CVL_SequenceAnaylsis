@@ -70,3 +70,42 @@ ${cov}/${base}_4.coverage
 
 done
 ```
+
+I then made this script for making the histograms in R. So it goes through and gets the file and makes a histogram by calling the R script which I will list below
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/
+
+
+cov=${project_dir}/storage/cov_dir
+rscripts=${project_dir}/Rscripts
+
+files=(${cov}/*_combined.coverage)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _combined.coverage`
+
+Rscript ${rscripts}/coverage_histogram.R ${cov}/${base}_combined.coverage ${base}
+
+done
+```
+The R script that was called above is found below
+```
+## need next line to call arguments:
+
+args <- commandArgs(trailingOnly = TRUE)
+
+#read in the first argument which should be the file
+dat <- read.table(args[1])
+#the title should be the second argument (the base name)
+title <- args[2]
+colnames(dat) <- c("chr","pos","depth")
+
+#make a histogram of the coverage for each file
+pdf(paste(title, ".pdf", sep=""))
+hist(dat$depth, xlim=c(0,1000), breaks=50)
+dev.off()
+```
