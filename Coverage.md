@@ -47,7 +47,7 @@ project_dir=/home/sarahm/cvl/storage
 cov=${project_dir}/cov_dir
 
 
-files=(${gatk}/*_X.coverage)
+files=(${cov}/*_X.coverage)
 for file in ${files[@]}
 do
 name=${file}
