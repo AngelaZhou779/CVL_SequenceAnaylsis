@@ -37,7 +37,6 @@ grep '^4' ${novo_mpileup}/${project_name}_main.sync > ${novo_mpileup}/${project_
 grep 'X' ${novo_mpileup}/${project_name}_main.sync > ${novo_mpileup}/${project_name}_X.sync 
 ```
 
-
 Not sure what happened here but I ended up doing this manually with the following commands. Apparently using the "-w" flag with grep allows you to search for an exact word but I was reading some [website](https://www.gnu.org/savannah-checkouts/gnu/grep/manual/grep.html) that said it had to be at the front of the line. Luckily, my stuff has the first column as the chromosome. The main idea is the same as Paul's script above. Basically we are trying to get rid of any heterochromatin and keep only the info for specific chromosomes. In the sync file, things will be listed as "2LHet" so we needed to do this exact match. 
 ```
 grep -w '3R' cvl_bwa_mapped.gatk.sync > cvl_bwa_mapped.gatk_3R.sync 
@@ -47,3 +46,50 @@ grep -w '2L' cvl_bwa_mapped.gatk.sync > cvl_bwa_mapped.gatk_2L.sync
 grep -w '^4' cvl_bwa_mapped.gatk.sync > cvl_bwa_mapped.gatk_4.sync 
 grep -w 'X' cvl_bwa_mapped.gatk.sync > cvl_bwa_mapped.gatk_X.sync
 ```
+
+Okay, so after you have the sync file separated by chromosome, you'll need to split it up into parts based on the different treatments because we're going to need to do the script on each of the selection treatments differently. I've made the following into a script called **separate_sync_files.sh** Basically you are taking the columns from the original sunc file that are associated with each treatment. I also have to replicate my ancestor column in each because of the format that Taus's script call for. I got the column numbers by knowing the order the files were entered in to make my mpileup (basically alphbetical order).
+
+```
+#!/bin/bash
+
+#Variable for project name (title of mpileup file)
+project_name=cvl_bwa_mapped.gatk
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage
+
+#Path to .sync files
+SyncFiles=${project_dir}/sync_files
+	
+mkdir ${SyncFiles}/splitsync_dir
+splitSync=${SyncFiles}/splitsync_dir
+	
+# The seperated .sync files
+sync[0]=${SyncFiles}/cvl_bwa_mapped.gatk_3R.sync
+sync[1]=${SyncFiles}/cvl_bwa_mapped.gatk_2R.sync
+sync[2]=${SyncFiles}/cvl_bwa_mapped.gatk_3L.sync
+sync[3]=${SyncFiles}/cvl_bwa_mapped.gatk_2L.sync
+sync[4]=${SyncFiles}/cvl_bwa_mapped.gatk_X.sync 
+sync[5]=${SyncFiles}/cvl_bwa_mapped.gatk_4.sync 
+
+##-----------------------------------------------##
+
+### Split sync files into UP, DOWN, and LAAD sync (we are taking the columns associated with each of these. Basically your sync file has columns that are in the order that the mpileup was created)
+
+for file in ${sync[@]}
+	do
+	name=${file}
+	base=`basename ${name} .sync`
+	
+	cat ${SyncFiles}/${base}.sync | awk '{print $1,$8,$9, $1,$10,$11, $1,$12,$13 $1,$15,$14, $1,$17,$16, $1,$19,$18}' > ${splitSync}/${base}_UP.sync
+	
+	cat ${SyncFiles}/${base}.sync | awk '{print $1,$3,$2, $1,$5,$4, $1,$6,$7}' > ${splitSync}/${base}_DOWN.sync
+
+  cat ${SyncFiles}/${base}.sync | awk '{print $1,$26,$27, $1,$28,$29, $1,$31,$30}' > ${splitSync}/${base}_LAAD.sync
+
+done
+
+
+##------------------------------------------------##
+```
+At some point you're going to need to have some R scripts copied into your folders for this next part. Paul said he literally copied scripts into nano because it was easier for him. I plan ondoing this as well and also trying to personalize on ethe scripts based on the spacing of my sync files. Paul said he had to do this for the script that reads in the sunc file becuase the spacing was off and it won't read in properly unless you have changed this setting.
