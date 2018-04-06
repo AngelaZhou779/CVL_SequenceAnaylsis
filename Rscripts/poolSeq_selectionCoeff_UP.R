@@ -6,8 +6,8 @@
   
 ### Required Packages:
 
-  #install.packages("/home/paul/poolSeq_0.3.2.tar.gz", repos=NULL, type="source")
-  #install.packages("/home/paul/matrixStats_0.53.0.tar.gz", repos=NULL, type="source")
+  #install.packages("/home/sarahm/poolSeq_0.3.2.tar.gz", repos=NULL, type="source")
+  #install.packages("/home/sarahm/matrixStats_0.53.0.tar.gz", repos=NULL, type="source")
 
 ### Not available: so source seperate:
   #require(poolSeq)
@@ -21,18 +21,17 @@
   require(matrixStats)
   
 ### Source the scripts (Copied) for Pool-Seq (only one fails and is not needed)
-  source('/home/paul/episodicData/novoalign/novo_Rscripts/Taus_Scripts/testTaus/loadaf.R')  
+  source('/home/sarahm/cvl/scripts/Rscripts/Taus_scripts/loadaf.R')  
   #estne.R Fails.
-  #source('/home/paul/episodicData/novoalign/novo_Rscripts/Taus_Scripts/testTaus/estne.R')
-  source('/home/paul/episodicData/novoalign/novo_Rscripts/Taus_Scripts/testTaus/estsh.R')
-  source('/home/paul/episodicData/novoalign/novo_Rscripts/Taus_Scripts/testTaus/idsel.R')
-  source('/home/paul/episodicData/novoalign/novo_Rscripts/Taus_Scripts/testTaus/simaf.R')
+  #source('/home/sarahm/cvl/scripts/Rscripts/Taus_scripts/estne.R')
+  source('/home/sarahm/cvl/scripts/Rscripts/Taus_scripts/estsh.R')
+  source('/home/sarahm/cvl/scripts/Rscripts/Taus_scripts/idsel.R')
+  source('/home/sarahm/cvl/scripts/Rscripts/Taus_scripts/simaf.R')
 
 ### Possibly need custom function to read in manipulated .sync files:
 	### Needed for manipulated .sync files (one basic change labeled at top of changed script:
   
-  source("/home/paul/episodicData/novoalign/novo_Rscripts/Taus_ReadSync.R")
-
+  source("/home/sarahm/cvl/scripts/Rscripts/read.sync_personal_function.R")
 ### Read in the data file for args[1]
 
   setwd(args[3])
