@@ -7,7 +7,7 @@
 ### Required Packages:
 
   #install.packages("/home/sarahm/poolSeq_0.3.2.tar.gz", repos=NULL, type="source")
-  #install.packages("/home/sarahm/matrixStats_0.53.0.tar.gz", repos=NULL, type="source")
+  #install.packages("/home/sarahm/matrixStats_0.53.1.tar.gz", repos=NULL, type="source")
 
 ### Not available: so source seperate:
   #require(poolSeq)
