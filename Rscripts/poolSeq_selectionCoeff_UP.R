@@ -37,7 +37,7 @@
 
   setwd(args[3])
   
-  mySync <- read.sync_Personal(file=args[1], gen=c(0,10,24,0,10,24,0,10,24,0,10,24,0,10,24,0,10,24,), repl=c(1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6), polarization = "rising")
+  mySync <- read.sync_Personal(file=args[1], gen=c(0,10,24,0,10,24,0,10,24,0,10,24,0,10,24,0,10,24), repl=c(1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6), polarization = "rising")
 
 ### Make data.frame of just alleles information to sort out relevent positions:
 # Turn alleles to data frame:
