@@ -8,9 +8,6 @@ project_dir=/home/sarahm/cvl/storage
 
 #Path to .sync files
 SyncFiles=${project_dir}/sync_files
-	
-mkdir ${SyncFiles}/splitsync_dir
-splitSync=${SyncFiles}/splitsync_dir
 
 #Output dir:
 poolSeq=${project_dir}/poolSeq
