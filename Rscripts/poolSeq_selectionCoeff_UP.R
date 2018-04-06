@@ -58,7 +58,7 @@ pbj <- matrix(NA,length(pst2), 3)
 
  for (i in 1:length(pst2)) {
     b_b <- pst2[i]
-    TrajTEST <- af.traj(mySync, args[2], repl=c(1,2), pos=b_b)
+    TrajTEST <- af.traj(mySync, args[2], repl=c(1,2,3,4,5,6), pos=b_b)
     BfsfTEST <- estimateSH(TrajTEST, Ne=100, t=ccc, h=0.5, haploid = FALSE, simulate.p.value=TRUE)
     pbj[i,] <- c(BfsfTEST$s, BfsfTEST$p.value, b_b)
     rm(TrajTEST)
