@@ -1,6 +1,5 @@
 args <- commandArgs(trailingOnly = TRUE)
 mydirs <- list.dirs(path=args[1], recursive = FALSE) 
-XX <- args[1]
 for (dir in mydirs){
 	setwd(dir)
 	J4 <- gsub('(.*)_\\w+', '\\1', dir)
