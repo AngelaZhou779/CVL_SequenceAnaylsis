@@ -97,4 +97,33 @@ done
 
 ##------------------------------------------------##
 ```
-At some point you're going to need to have some R scripts copied into your folders for this next part. Paul said he literally copied scripts into nano because it was easier for him. I plan ondoing this as well and also trying to personalize on ethe scripts based on the spacing of my sync files. Paul said he had to do this for the script that reads in the sunc file becuase the spacing was off and it won't read in properly unless you have changed this setting.
+At some point you're going to need to have some R scripts copied into your folders for this next part. The selection coefficient script is run in bash but calls R scripts as the main code.  
+So the main bash script for this is one of the following:
+	- [SelCoeff_LAAD.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/SelCoeff_LAAD.sh)
+	- 
+	- 
+I had to make three independent scripts because I am calling the files separately to run on different machines. Also, my UP lineages do not have the same number of replicate populations as my DOWN and LAAD populations. Within the scripts above you end up calling two R scripts. One R script comes at the end of the bash script and gathers all of the split data into one csv. Paul said he got tired of waiting for things to run and did this independently. 
+	- [combinePoolseqCSV.R](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Rscripts/combinePoolseqCSV.R)
+I might also do it independently like Paul ended up doing by modifying the following code. 
+```
+# set directory holding all .csv files to combine
+setwd('/home/paul/episodicData/novoalign/novo_mpileup/splitsync_dir/novo_episodic_2L_Sel_Split')
+
+#list Csvs
+mycsvs <- list.files(pattern='.csv')
+X <- NULL
+for (file in mycsvs){
+  X2 <- read.csv(file, h=T)
+  X <- rbind(X, X2)
+}
+# change based on chromo!
+X$chr <- '2L'
+
+#write the CSV file !!! EASY PEASY
+write.csv(X, file='/home/paul/episodicData/novoalign/novo_mpileup/novo_episodic_2L_Sel.csv', row.names = FALSE)
+```
+The 2 following R scripts (the same script but for differing number of replicates) are the main R script for selection coefficeints. 
+	- [poolSeq_selectionCoeff_DOWNandLAAD.R](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Rscripts/poolSeq_selectionCoeff_DOWNandLAAD.R)
+	- [poolSeq_selectionCoeff_UP.R](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Rscripts/poolSeq_selectionCoeff_UP.R)
+The issue with the main R script is that it sources quite a few other little R scripts. For some reason, Brian's machine will not require poolSeq even when it has been installed on the computer. So I have copied [Taus's scripts](https://github.com/ThomasTaus/poolSeq/tree/master/R) directly into my directories. I also had to make a personal function to read in the sync files since the spacing was off once they have been cut up: [read.sync_personal_function.R](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Rscripts/read.sync_personal_function.R). It really is just the same read function from Taus's scripts but with different separator for when you read in the files. 
+	
