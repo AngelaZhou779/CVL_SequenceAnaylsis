@@ -51,8 +51,7 @@ Okay, so after you have the sync file separated by chromosome, you'll need to sp
 
 First make this directory in which you will put stuff
 ```
-mkdir ${SyncFiles}/splitsync_dir
-splitSync=${SyncFiles}/splitsync_dir
+mkdir /home/sarahm/cvl/storage/sync_files/splitsync_dir
 ```
 Then the rest of the script
 ```
@@ -66,6 +65,9 @@ project_dir=/home/sarahm/cvl/storage
 
 #Path to .sync files
 SyncFiles=${project_dir}/sync_files
+
+#where the files will be put
+splitSync=${SyncFiles}/splitsync_dir
 	
 # The seperated .sync files
 sync[0]=${SyncFiles}/cvl_bwa_mapped.gatk_3R.sync
