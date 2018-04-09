@@ -47,8 +47,14 @@ grep -w '^4' cvl_bwa_mapped.gatk.sync > cvl_bwa_mapped.gatk_4.sync
 grep -w 'X' cvl_bwa_mapped.gatk.sync > cvl_bwa_mapped.gatk_X.sync
 ```
 
-Okay, so after you have the sync file separated by chromosome, you'll need to split it up into parts based on the different treatments because we're going to need to do the script on each of the selection treatments differently. I've made the following into a script called **separate_sync_files.sh** Basically you are taking the columns from the original sunc file that are associated with each treatment. I also have to replicate my ancestor column in each because of the format that Taus's script call for. I got the column numbers by knowing the order the files were entered in to make my mpileup (basically alphbetical order).
+Okay, so after you have the sync file separated by chromosome, you'll need to split it up into parts based on the different treatments because we're going to need to do the script on each of the selection treatments differently. I've made the following into a script called **separate_sync_files.sh** Basically you are taking the columns from the original sunc file that are associated with each treatment. I also have to replicate my ancestor column in each because of the format that Taus's script call for. I got the column numbers by knowing the order the files were entered in to make my mpileup (basically alphbetical order). You must also remember that the first 3 columns of the sync file are actually important info that you must include so put those first and the the columns you need
 
+First make this directory in which you will put stuff
+```
+mkdir ${SyncFiles}/splitsync_dir
+splitSync=${SyncFiles}/splitsync_dir
+```
+Then the rest of the script
 ```
 #!/bin/bash
 
@@ -60,9 +66,6 @@ project_dir=/home/sarahm/cvl/storage
 
 #Path to .sync files
 SyncFiles=${project_dir}/sync_files
-	
-mkdir ${SyncFiles}/splitsync_dir
-splitSync=${SyncFiles}/splitsync_dir
 	
 # The seperated .sync files
 sync[0]=${SyncFiles}/cvl_bwa_mapped.gatk_3R.sync
@@ -81,11 +84,11 @@ for file in ${sync[@]}
 	name=${file}
 	base=`basename ${name} .sync`
 	
-	cat ${SyncFiles}/${base}.sync | awk '{print $1,$8,$9, $1,$10,$11, $1,$12,$13 $1,$15,$14, $1,$17,$16, $1,$19,$18}' > ${splitSync}/${base}_UP.sync
+	cat ${SyncFiles}/${base}.sync | awk '{print $1,$2,$3, $4,$11,$12, $4,$13,$14, $4,$15,$16, $4,$18,$17, $4,$20,$19, $4,$22,$21}' > ${splitSync}/${base}_UP.sync
 	
-	cat ${SyncFiles}/${base}.sync | awk '{print $1,$3,$2, $1,$5,$4, $1,$6,$7}' > ${splitSync}/${base}_DOWN.sync
+	cat ${SyncFiles}/${base}.sync | awk '{print $1,$2,$3, $4,$6,$5, $4,$8,$7, $4,$9,$10}' > ${splitSync}/${base}_DOWN.sync
 
-  cat ${SyncFiles}/${base}.sync | awk '{print $1,$26,$27, $1,$28,$29, $1,$31,$30}' > ${splitSync}/${base}_LAAD.sync
+  cat ${SyncFiles}/${base}.sync | awk '{print $1,$2,$3, $4,$29,$30, $4,$31,$32, $4,$34,$33}' > ${splitSync}/${base}_LAAD.sync
 
 done
 
