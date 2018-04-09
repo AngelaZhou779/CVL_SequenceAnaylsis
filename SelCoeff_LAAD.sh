@@ -9,10 +9,13 @@ project_dir=/home/sarahm/cvl/storage
 #Path to .sync files
 SyncFiles=${project_dir}/sync_files
 
+#where the split sync files are
+splitSync=${SyncFiles}/splitsync_dir
+
 #Output dir:
 poolSeq=${project_dir}/poolSeq
 
-# Need to copy three R scripts and add to a new directory
+# Need to copy R scripts and add to a new directory
 Rscripts=/home/sarahm/cvl/scripts/Rscripts
 	
 ### Split the sync files into many sized files (12):
