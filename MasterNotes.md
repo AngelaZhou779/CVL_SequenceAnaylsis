@@ -239,7 +239,9 @@ More info about GATK Realigner found [here](https://software.broadinstitute.org/
       
          [gatk_index.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/gatk_index.sh)
          
-      Trying to run these in parallel with a '&' at the end of the coding line in the for loop. It worked, but I wonder how much %CPU these are supposed to use normally. All my jobs were running but with 10%CPU max. So maybe it was all run on one processor... Or maybe that's how little indexing needs; it did only take a little bit anyways (less than half a day).
+      Trying to run these in parallel with a '&' at the end of the coding line in the for loop. It worked, but I wonder how much %CPU these are supposed to use normally. All my jobs were running but with 10%CPU max. So maybe it was all run on one processor... Or maybe that's how little indexing needs; it did only take a little bit anyways (less than half a day). 
+      
+      Update: When I ran these on a subset of files, they still ran at lower than 100%CPU (between 57% and 25%). Not sure why but they are running in parallel so I guess before there was too much space being taken up by others)
       
    6. Run GATK indelrealigner:
       This said I need a .fai fasta reference file. I'm not sure what Paul had done for this step but I made one with the following code and I'll see if it works now
