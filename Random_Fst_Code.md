@@ -1,3 +1,6 @@
+Basically all of this was when I was making a figure for a poster and using subsets of my data to do fst with windows. Just some random code that might have some useful parts
+
+```
 #! /bin/bash
 
 #Variable for project:
@@ -60,5 +63,5 @@ grep -w "^3L" UPandANC_2.fst > UPandANC_3L.fst &
 grep -w "^4" UPandANC_2.fst > UPandANC_4.fst
 
 cat UPandANC_4.fst | awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11}' > UPandANC_4_short.fst
-
+```
 
