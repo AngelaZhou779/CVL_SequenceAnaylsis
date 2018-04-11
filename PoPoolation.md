@@ -17,3 +17,23 @@ perl /usr/local/popoolation/snp-frequency-diff.pl --input /home/sarahm/cvl/stora
 perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/gatk_dir/cvl_bwa_mapped.gatk.sync --output /home/sarahm/cvl/storage/allele_freq/cvl_bwa.fst --suppress-noninformative --min-count 3 --min-coverage 50 --max-coverage 800 --min-covered-fraction 1 --window-size 1 --step-size 1 --pool-size 200
 ```
 So I set the pool size for 200, even though my ancestor file has a pool size of 800. I'm not sure what to do with variable pool sizes. I think this can work as a minimum. 
+
+So Ian found out that by using the help function on the functions you can set the max-coverage and pool-size individually for all your files. Since I have 31 sets of data in my sync file it means that I have to set these values 31 times. I also decided to run this code on the separate chromosome sync files I had created for other things so that they took a shorter time (I will run them at the same time). However, each script thing is that same except for the input and output files. Later on, I will just put the output files together so I have one big file and then I will pull out the comparison columns I need. 
+
+```
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/fst/cvl_bwa_mapped.gatk_2L.sync --output /home/sarahm/cvl/storage/fst/cvl_2L.fst --suppress-noninformative --min-count 10 --min-coverage 4 
+--max-coverage 1000,275,275,275,275,275,275 
+--min-covered-fraction 1 --window-size 1 --step-size 1 --pool-size 800:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200
+
+
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/fst/cvl_bwa_mapped.gatk_3L.sync --output /home/sarahm/cvl/storage/fst/cvl_3L.fst
+
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/fst/cvl_bwa_mapped.gatk_3R.sync --output /home/sarahm/cvl/storage/fst/cvl_3R.fst
+
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/fst/cvl_bwa_mapped.gatk_2R.sync --output /home/sarahm/cvl/storage/fst/cvl_2R.fst
+
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/fst/cvl_bwa_mapped.gatk_X.sync --output /home/sarahm/cvl/storage/fst/cvl_X.fst
+
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/fst/cvl_bwa_mapped.gatk_4.sync --output /home/sarahm/cvl/storage/fst/cvl_4.fst
+
+```
