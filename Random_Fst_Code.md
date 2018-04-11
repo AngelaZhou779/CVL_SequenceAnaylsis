@@ -1,5 +1,7 @@
 Basically all of this was when I was making a figure for a poster and using subsets of my data to do fst with windows. Just some random code that might have some useful parts
 
+The real Fst code can b found in the [Popoolation.md file](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/PoPoolation.md)
+
 ```
 #! /bin/bash
 
