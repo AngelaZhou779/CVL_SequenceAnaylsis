@@ -109,3 +109,61 @@ pdf(paste(title, ".pdf", sep=""))
 hist(dat$depth, xlim=c(0,1000), breaks=50)
 dev.off()
 ```
+So I looked at all the histogrmas on my local computer and saw the distribution of reads. We next wanted to look at the specific parts of the chromosomes where we had very high and very low read counts. I did a test run of this with the ancestor by pulling out all the values above 950 and all values below 50 (we can't map every single point or else the computer will just blthhppp). The script below shows how I subsetted each of the sample files (high cutoff is 210 and low cutoff is 25)
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl
+
+cov=${project_dir}/storage/cov_dir
+rscripts=${project_dir}/scripts/Rscripts
+
+files=(${cov}/*_combined.coverage)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _combined.coverage`
+
+awk '$3 > 210' ${cov}/${base}_combined.coverage > ${cov}/${base}_subset.coverage
+
+wait 
+
+awk '$3 < 25' ${cov}/${base}_combined.coverage >> ${cov}/${base}_subset.coverage
+
+wait
+
+rm -f ${cov}/${base}_combined.coverage
+
+Rscript ${rscripts}/coverage_map.R ${cov}/${base}_subset.coverage ${base}
+
+done
+```
+The R script below is what I called within this script. 
+```
+## need next line to call arguments:
+
+args <- commandArgs(trailingOnly = TRUE)
+
+require(ggplot2)
+
+#read in the first argument which should be the file
+dat <- read.table(args[1])
+#the title should be the second argument (the base name)
+title <- args[2]
+colnames(dat) <- c("chr","pos","depth")
+
+
+p <-  ggplot(data = dat, aes(x=pos, y=depth))
+p2 <- p + 
+  geom_point(size=0.25, alpha = 0.5) + 
+  facet_wrap( ~ chr, ncol = 3) +
+  theme(panel.background = element_blank()) +
+  xlab("Position") +
+  ylab("Coverage")  
+
+
+pdf(paste(title, "_map.pdf", sep=""))
+p2
+dev.off()
+```
