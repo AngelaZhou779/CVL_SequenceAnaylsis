@@ -68,8 +68,8 @@ pbj <- matrix(NA,length(pst2), 3)
   }
 
 x2 <- args[1]
-x3 <- gsub("\\..*","", x2)
-write.csv(pbj, file=paste(x3, ".csv", sep=""), row.names=FALSE)
+
+write.csv(pbj, file=paste(x2, ".csv", sep=""), row.names=FALSE)
 
 rm(pbj)
 rm(mySync)
