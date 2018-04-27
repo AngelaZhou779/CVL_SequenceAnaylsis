@@ -101,14 +101,14 @@ At some point you're going to need to have some R scripts copied into your folde
 So the main bash script for this is one of the following:
 
    - [SelCoeff_LAAD.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/SelCoeff_LAAD.sh)
-   - 
-   - 
+   - [SelCoeff_DOWN.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/SelCoeff_DOWN.sh)
+   - [SelCoeff_UP.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/SelCoeff_UP.sh)
 	
 I had to make three independent scripts because I am calling the files separately to run on different machines. Also, my UP lineages do not have the same number of replicate populations as my DOWN and LAAD populations. Within the scripts above you end up calling two R scripts. One R script comes at the end of the bash script and gathers all of the split data into one csv. Paul said he got tired of waiting for things to run and did this independently. 
 
    - [combinePoolseqCSV.R](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Rscripts/combinePoolseqCSV.R)
 	
-I might also do it independently like Paul ended up doing by modifying the following code. 
+I might also do it independently like Paul ended up doing by modifying the following code. (Update: I am definitely going to do this independently. It was just frustrating waiting especially after having to dtart up and try a second time doing this whole thing again)
 ```
 # set directory holding all .csv files to combine
 setwd('/home/paul/episodicData/novoalign/novo_mpileup/splitsync_dir/novo_episodic_2L_Sel_Split')
