@@ -82,6 +82,4 @@ for file in ${files[@]}
 done
 wait
 
-Rscript ${Rscripts}/combinePoolseqCSV.R ${splitSync}
-
 ##------------------------------------------------##
