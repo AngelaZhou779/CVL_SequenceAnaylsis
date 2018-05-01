@@ -49,16 +49,19 @@ So the input files for making the sync went in this order which is the way they 
 13. Up R3
 14. Up R4
 15. Up R4 G10
-16. 
-17. 
-18. 
-19. 
-20. 
-21. 
-22. 
-23. 
-24. 
-25. 
-26. 
-27. 
-28. 
+16. Up R5
+17. Up R5 G10
+18. Up R6
+19. Up R6 G10
+20. A1
+21. A2
+22. A3
+23. A4
+24. A5
+25. A6
+26. LAAD R1 G10
+27. LAAD R1
+28. LAAD R2 G10
+29. LAAD R2
+30. LAAD R3
+31. LAAD R3 G10
