@@ -65,3 +65,22 @@ So the input files for making the sync went in this order which is the way they 
 29. LAAD R2
 30. LAAD R3
 31. LAAD R3 G10
+
+So I got the first line of one of my files to look at the comparisons for each column. I manipulated it in R so that it is easier to see the column numbers associated with each comparison so I can start to pull out the ones I need. First I pulled out the first line:
+```
+head -1 cvl_4.fst > comparisons.txt
+```
+and brought it to my local machine. Then I outputted something which had the column numbers easilt accesible. I figure I'll look for columns I need both visually and through search. 
+```
+dat <- read.table('comparisons.txt')
+
+ccol <- ncol(dat)
+
+for (i in 6:ccol){
+  dat[[i]] <- gsub("=.*","", dat[[i]])
+}
+
+dat2 <- data.frame(r1=names(dat), t(dat))
+
+write.csv(dat2, file="comparisons.csv", row.names=FALSE)
+```
