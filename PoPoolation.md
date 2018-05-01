@@ -33,3 +33,32 @@ perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/sync
 
 perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/sync_files/cvl_bwa_mapped.gatk_4.sync --output /home/sarahm/cvl/storage/fst/cvl_4.fst --suppress-noninformative --min-count 4 --min-coverage 4 --max-coverage 1100,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300 --min-covered-fraction 1 --window-size 1 --step-size 1 --pool-size 800:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200
 ```
+So the input files for making the sync went in this order which is the way they were listed alphabetically in the directory (you can also specify the bam list when you make a mpileup/sync if you want to have a list as such. Okay, so my list of things is long and that also means I have so many flipping comparisons. List:
+1. Ancestor
+2. Down R1
+3. Down R1 G10
+4. Down R2
+5. Down R2 G10
+6. Down R3 G10
+7. Down R3
+8. Up R1 G10
+9. Up R1
+10. Up R2 G10
+11. Up R2
+12. Up R3 G10
+13. Up R3
+14. Up R4
+15. Up R4 G10
+16. 
+17. 
+18. 
+19. 
+20. 
+21. 
+22. 
+23. 
+24. 
+25. 
+26. 
+27. 
+28. 
