@@ -84,3 +84,17 @@ dat2 <- data.frame(r1=names(dat), t(dat))
 
 write.csv(dat2, file="comparisons.csv", row.names=FALSE)
 ```
+So I went through manually and found the columns I needed from the original fst file for each of the comparisons. 
+```
+#For all of UP versus all of DOWN
+awk '{print $1, $2, $3, $4, $5, $42, $44, $46, $47, $49, $51, $97, $99, $101, $102, $104, $106, $172, $174, $176, $177, $179, $181}' all_chrom.fst > UPandDOWN.fst
+
+#For all of UP versus the ANCESTOR
+awk '{print $1, $2, $3, $4, $5, $13, $15, $17, $18, $20, $22}' all_chrom.fst > UPandANC.fst
+
+#For all of ASSIMILATED versus the ANCESTOR
+awk '{print $1, $2, $3, $4, $5, $24, $25, $26, $27, $28, $29}' all_chrom.fst > ASSIMandANC.fst
+
+#For all of ASSIMILATED versus all of DOWN
+awk '{print $1, $2, $3, $4, $5, $53, $54, $55, $56, $57, $58, $108, $109, $110, $111, $112, $113, $183, $184, $185, $186, $187, $188}' all_chrom.fst > AASIMandDOWN.fst
+```
