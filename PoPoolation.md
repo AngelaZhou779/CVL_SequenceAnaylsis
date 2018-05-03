@@ -98,3 +98,7 @@ awk '{print $1, $2, $3, $4, $5, $24, $25, $26, $27, $28, $29}' all_chrom.fst > A
 #For all of ASSIMILATED versus all of DOWN
 awk '{print $1, $2, $3, $4, $5, $53, $54, $55, $56, $57, $58, $108, $109, $110, $111, $112, $113, $183, $184, $185, $186, $187, $188}' all_chrom.fst > AASIMandDOWN.fst
 ```
+So I was having issues installing packages into R and Caroline showed me a way to do so from outside the R session. I did so from the home directory where the file was
+```
+R CMD INSTALL --library=/home/sarahm ggplot2_2.2.1.tgz
+```
