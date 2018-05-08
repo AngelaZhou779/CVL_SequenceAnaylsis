@@ -33,6 +33,8 @@ perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/sync
 
 perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/sync_files/cvl_bwa_mapped.gatk_4.sync --output /home/sarahm/cvl/storage/fst/cvl_4.fst --suppress-noninformative --min-count 4 --min-coverage 4 --max-coverage 1100,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300 --min-covered-fraction 1 --window-size 1 --step-size 1 --pool-size 800:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200:200
 ```
+## Finding the specific comparisons you want
+
 So the input files for making the sync went in this order which is the way they were listed alphabetically in the directory (you can also specify the bam list when you make a mpileup/sync if you want to have a list as such. Okay, so my list of things is long and that also means I have so many flipping comparisons. List:
 1. Ancestor
 2. Down R1
@@ -98,6 +100,8 @@ awk '{print $1, $2, $3, $4, $5, $24, $25, $26, $27, $28, $29}' all_chrom.fst > A
 #For all of ASSIMILATED versus all of DOWN
 awk '{print $1, $2, $3, $4, $5, $53, $54, $55, $56, $57, $58, $108, $109, $110, $111, $112, $113, $183, $184, $185, $186, $187, $188}' all_chrom.fst > AASIMandDOWN.fst
 ```
+## Making an image on Brian's server
+
 So I was having issues installing packages into R and Caroline showed me a way to do so from outside the R session. I did so from the home directory where the file was
 ```
 R CMD INSTALL --library=/home/sarahm ggplot2_2.2.1.tgz
