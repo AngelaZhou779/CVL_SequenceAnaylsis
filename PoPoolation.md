@@ -84,7 +84,7 @@ dat2 <- data.frame(r1=names(dat), t(dat))
 
 write.csv(dat2, file="comparisons.csv", row.names=FALSE)
 ```
-So I went through manually and found the columns I needed from the original fst file for each of the comparisons. 
+By this point I had appended all the separate chromosome files into one large file called all_chrom.fst. I just used cat and specified each file. However, I think I did it in the order I eventually wanted the plot to come out as so X, 2L, 2R, 3L, 3R, 4. Then I separated them into the specific groups I needed below. I went through manually and found the columns I needed from the original fst file for each of the comparisons based on the comparison.csv file from above. 
 ```
 #For all of UP versus all of DOWN
 awk '{print $1, $2, $3, $4, $5, $42, $44, $46, $47, $49, $51, $97, $99, $101, $102, $104, $106, $172, $174, $176, $177, $179, $181}' all_chrom.fst > UPandDOWN.fst
@@ -101,4 +101,106 @@ awk '{print $1, $2, $3, $4, $5, $53, $54, $55, $56, $57, $58, $108, $109, $110, 
 So I was having issues installing packages into R and Caroline showed me a way to do so from outside the R session. I did so from the home directory where the file was
 ```
 R CMD INSTALL --library=/home/sarahm ggplot2_2.2.1.tgz
+```
+I also ended up needing to install data.table from inside R but there is a nice way to do this on the (help page)[https://github.com/Rdatatable/data.table/wiki/Installation]
+```
+install.packages("data.table", type = "source",
+    repos = "http://Rdatatable.github.io/data.table")
+```
+So in trying to get things to print I found you can't make png or jpg unless you have a grapics connection so I needed to log on with the -X flag for grapics (example below). I logged onto both the head and the info with the flag. There are still some issues with trying to make images (for instance, you can't use any transparency/alpha) but for the most part it all work with the png() and dev.off() commands
+```
+ssh -X [YOURNAME]@info.mcmaster.ca
+ssh -X info[INFO#]
+```
+Okay, the last bit I should say is that I used R 3.2.2 and that data.table did not work with a later version I tried to use. Just a note for the future if I try to run this again. You defnitely want to use data.table and fread() since anything else takes too long to get the info in. (I'm also work with 1.4G files so take that as you will).
+
+```
+### Packages Required 
+require(data.table)
+require(ggplot2)
+
+### Read in the .fst file into R (requires data.table)
+ddat2 <- fread('UPandDOWN.fst')
+
+
+head(ddat2)
+
+
+ccol <- ncol(ddat2)
+
+#this next for loop is getting rid of all of the comparison info that is in each column witht the fst values. The gsub command takes everything before the = (the .* means everything with the . being an escape from the wildcard) and replaces it with nothing.
+for (i in 6:ccol){
+  ddat2[[i]] <- gsub(".*=","", ddat2[[i]])
+}
+
+
+
+#to change the columns to numeric so we can eventually get the mean
+for (i in 6:ccol){
+  ddat2[[i]] <- as.numeric(ddat2[[i]])
+}
+
+ddat2$meanFst <- rowMeans(subset(ddat2, select = c(6:ccol)), na.rm = TRUE)
+
+ddat2 <- ddat2[ddat2$meanFst!='NaN',]
+head(ddat2)
+
+#choose the last column for the fst mean
+#####YOU WILL NEED TO CHANGE THE LAST NUMBER HERE
+ddat2 <- ddat2[,c(1,2,3,4,5,24)]
+
+colnames(ddat2) <- c('chr', 'window', "num", 'frac', 'meanCov','meanFst')
+head(ddat2)
+
+#this part below is so you change the order of the chromosomes to make a nice map going across the x-axis. I need to check and see which order I had my chromosomes in by pulling out rows of data equal to letters below. So I'd look at ddat2[1,] then if the first value is on X I would look at ddat2[1 + l,]. This is how you choose the order of the chromosomes as you will see below.
+g <- nrow(ddat2[which(ddat2$chr=='2L'),])
+h <- nrow(ddat2[which(ddat2$chr=='2R'),])
+i <- nrow(ddat2[which(ddat2$chr=='3L'),])
+j <- nrow(ddat2[which(ddat2$chr=='3R'),])
+k <- nrow(ddat2[which(ddat2$chr=='4'),])
+l <- nrow(ddat2[which(ddat2$chr=='X'),])
+
+#NOTE: Chaging Orders:
+#To change the order for X to be first:
+# need to figure out the order the chromosomes are put in the data frame to give each the correct number in the sequence
+
+#Example: I want X first but the rest the same, this will have X have numbers 1:l (last line) and then start with 2L (first line)
+
+#2L-2R-3L-3R-4-X
+# ddat2$number <- c((l+1):(l+g), 
+#                   (l+g+1):(l+g+h), 
+#                   (l+g+h+1):(l+g+h+i),
+#                   (l+g+h+i+1):(l+g+h+i+j),
+#                   (l+g+h+i+j+1):(l+g+h+i+j+k), 
+#                   (1:l))
+
+
+#X-2L-2R-3L-3R-4
+ddat2$number <-  c((1:l),
+                   (l+1):(l+g), 
+                   (l+g+1):(l+g+h), 
+                   (l+g+h+1):(l+g+h+i),
+                   (l+g+h+i+1):(l+g+h+i+j),
+                   (l+g+h+i+j+1):(l+g+h+i+j+k))
+#Basically: each chromosome will correspond to one split, just need to move it around based initial order (assumeing the order you want is X-2L-2R-3L-3R-4)
+
+
+### PLOTS:
+
+plt <-  ggplot(data = ddat2, aes(x=number, y=meanFst, color=chr))
+plt2 <- plt + 
+  geom_point(size=0.5, show.legend = F) + 
+  theme(panel.background = element_blank()) +
+  scale_y_continuous(limits=c(0, 1), breaks=seq(0, 1, 0.1)) +
+  xlab("Chromosome") +
+  ylab(expression(F[ST])) +
+  scale_x_discrete(limits=c(l/2, l+(g/2), (l+g+(h/2)), (l+g+h+(i/2)), (l+g+h+i+(j/2)), (l+g+h+i+j+(k/2))), labels = c("X","2L", "2R", '3L', '3R', "4")) +
+  scale_colour_manual(values=c("#56B4E9", "#E69F00", 'grey30', 'grey46', 'wheat3', 'lemonchiffon4')) +
+  theme(text = element_text(size=20),
+        axis.text.x= element_text(size=15), 
+        axis.text.y= element_text(size=15))
+
+png("ASSIMandDOWN.png",width=1060,height=412,units="px")
+plt2
+dev.off()
 ```
