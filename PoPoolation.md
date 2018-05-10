@@ -208,3 +208,23 @@ png("ASSIMandDOWN.png",width=1060,height=412,units="px")
 plt2
 dev.off()
 ```
+## Some checks for things and other Fst comparisons
+So we wanted to check if the peak at the end of 2R is an artifact of sequencing or an inversion so we decided to do a comparison of down and the ancestor lineages. We also want to have a base Fst to cut off things for the other files so we want to compare all the down files together so see where the baseline Fst value for those things are. Also I want to compare all the up and assimilated lines with their matching UP selection lines and then do an average comparison of all of them.
+```
+#For all of DOWN versus the ANCESTOR
+awk '{print $1, $2, $3, $4, $5, $6, $8, $11}' all_chrom.fst > DOWNandANC.fst
+
+#For all of DOWN compared to itself
+awk '{print $1, $2, $3, $4, $5, $37, $40, $95}' all_chrom.fst > DOWNcomparison.fst
+
+#For UP and ASSIMILATED individually
+awk '{print $1, $2, $3, $4, $5, $228}' all_chrom.fst > UPandASSIM1.fst
+awk '{print $1, $2, $3, $4, $5, $270}' all_chrom.fst > UPandASSIM2.fst
+awk '{print $1, $2, $3, $4, $5, $308}' all_chrom.fst > UPandASSIM3.fst
+awk '{print $1, $2, $3, $4, $5, $326}' all_chrom.fst > UPandASSIM4.fst
+awk '{print $1, $2, $3, $4, $5, $358}' all_chrom.fst > UPandASSIM5.fst
+awk '{print $1, $2, $3, $4, $5, $386}' all_chrom.fst > UPandASSIM6.fst
+
+#For UP and ASSIMILATED together
+awk '{print $1, $2, $3, $4, $5, $228, $270, $308, $326, $358, $386}' all_chrom.fst > UPandASSIMtogether.fst
+```
