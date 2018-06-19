@@ -108,7 +108,7 @@ I had to make three independent scripts because I am calling the files separatel
 
    - [combinePoolseqCSV.R](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Rscripts/combinePoolseqCSV.R)
 	
-I might also do it independently like Paul ended up doing by modifying the following code. (Update: I am definitely going to do this independently. It was just frustrating waiting especially after having to dtart up and try a second time doing this whole thing again)
+I might also do it independently like Paul ended up doing by modifying the following code. (Update: I am definitely going to do this independently. It was just frustrating waiting especially after having to start up and try a second time doing this whole thing again)
 ```
 # set directory holding all .csv files to combine
 setwd('/home/paul/episodicData/novoalign/novo_mpileup/splitsync_dir/novo_episodic_2L_Sel_Split')
@@ -125,6 +125,24 @@ X$chr <- '2L'
 
 #write the CSV file !!! EASY PEASY
 write.csv(X, file='/home/paul/episodicData/novoalign/novo_mpileup/novo_episodic_2L_Sel.csv', row.names = FALSE)
+```
+Below is an example of what I did with Paul's code from above. 
+```
+# set directory holding all .csv files to combine
+setwd('/home/sarahm/cvl/storage/sync_files/splitsync_dir/cvl_bwa_mapped.gatk_2L_DOWN_Split')
+
+#list Csvs
+mycsvs <- list.files(pattern='.csv')
+X <- NULL
+for (file in mycsvs){
+  X2 <- read.csv(file, h=T)
+  X <- rbind(X, X2)
+}
+# change based on chromo!
+X$chr <- '2L'
+
+#write the CSV file !!! EASY PEASY
+write.csv(X, file='/home/sarahm/cvl/storage/sync_files/cvl_2L_DOWN.csv', row.names = FALSE)
 ```
 The 2 following R scripts (the same script but for differing number of replicates) are the main R script for selection coefficeints. 
 
