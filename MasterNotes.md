@@ -75,7 +75,8 @@ Transferring files to local machine (this code should be entered on you local ma
 scp sarahm@info.mcmaster.ca:/home/sarahm/cvl/fastqc/fastqc_posttrim/*_fastqc.html /Users/sarah/OneDrive/Documents/Drosophila/CVLProject/FastQC_PostTrim/
 ```
 
-# BWA Mapping
+# BWA Mapping 
+## There is an alternative pipeline following [Novoalign mapper](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/NovoalignPipeline.md)
 The script for this is:
 
    - [bwa_map.sh](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/bwa_map.sh)
