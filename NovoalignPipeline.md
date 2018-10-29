@@ -102,3 +102,25 @@ samtools merge ${merged}/${base}_merged_novo.bam \
   ${bam_dir}/${base}_L008_novo.bam
 done
 ```
+## Merge the two days
+
+```
+#!/bin/bash
+
+project_name=cvl
+project_dir=/home/sarahm/cvl
+
+merged=${project_dir}/storage/novo_dir/merged
+merged_all=${project_dir}/storage/novo_dir/merged_all
+
+files=(${merged}/A_*)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _merged_novo.bam`
+new_base=${base:2}
+samtools merge ${merged_all}/${new_base}_merged_all_novo.bam \
+  ${merged}/A_${new_base}_merged_novo.bam \
+  ${merged}/B_${new_base}_merged_novo.bam
+done
+```
