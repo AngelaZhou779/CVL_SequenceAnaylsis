@@ -92,7 +92,49 @@ sum(allele_df$minor_anc==TRUE)
 
 ```
 
-So this is the script I actually ran when looking at the assimilated and ancestor files with Fst>0.4:
+# Going through the process looking for ASSIM vs. ANC with Fst>0.3
+Finding out which positions have a high enough Fst for each lineage. The only thing I would change in the script is which column we're looking in (line: dat_subset <- dat[dat$V11>0.3,]) and then the output file name.
+```
+### Packages Required 
+require(data.table)
+
+#read in the data
+dat <- fread('ASSIMandANC.fst')
+
+ccol <- ncol(dat)
+
+for (i in 6:ccol){
+  dat[[i]] <- gsub(".*=","", dat[[i]])
+}
+
+for (i in 6:ccol){
+  dat[[i]] <- as.numeric(dat[[i]])
+}
+
+dat_subset <- dat[dat$V11>0.3,]
+
+dat_subset$V12 <- paste(dat_subset$V1,dat_subset$V2,sep="_")
+
+write.table(dat_subset$V12, file="ASSIMandANC6_abovept3.txt", row.names=FALSE, quote=FALSE, col.names = FALSE)
+```
+Next, you make subsets of the sync files based on the positions from the lists you just generated. I subset based on the list first and then subset the columns I need. I know what columns of the sync file I need by looking at the numbered list [here](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/PoPoolation.md). So the sync file has four extra columns in the front and then it lists out the columns in this order. So just subset the first four columns and the two from your comparison.
+```
+#first parts is a grep from the fst list to the sync file and the subsetting the columns. 
+#for assim 1
+grep -Fwf ../fst/ASSIMandANC1_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $24}' > ASSIMandANC1_abovept3_columns.sync
+#for assim 2
+grep -Fwf ../fst/ASSIMandANC2_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $25}' > ASSIMandANC2_abovept3_columns.sync
+
+grep -Fwf ../fst/ASSIMandANC3_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $26}' > ASSIMandANC3_abovept3_columns.sync
+
+grep -Fwf ../fst/ASSIMandANC4_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $27}' > ASSIMandANC4_abovept3_columns.sync
+
+grep -Fwf ../fst/ASSIMandANC5_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $28}' > ASSIMandANC5_abovept3_columns.sync
+
+grep -Fwf ../fst/ASSIMandANC6_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $29}' > ASSIMandANC6_abovept3_columns.sync
+
+```
+I then ran the script below. Btw, I took a super long time because I ran it on my personal computer instead of trying to get tidyr on Brian's machine and one of my files was like 3MB and it took like an hour to run at least on my computer which is crazy because the other ones were half the size but took like under a quarter of the time.
 ```
 require('tidyr')
 require('dplyr')
@@ -104,9 +146,9 @@ dat_together <- data.frame()
 min_read<-3
 
 #load in the file
-dat <- read.table("ASSIMandANC4_abovept4_columns.sync")
+dat <- read.table("ASSIMandANC6_abovept3_columns.sync")
 #change the name of this to add this stuff as a row to the main dataframe we started above
-name_row <- "ASSIMandANC4"
+name_row <- "ASSIMandANC6"
 
 allele_df <- data.frame(pos=dat[,1])
 allele_df$major1 <- NA
@@ -183,47 +225,5 @@ dat_together <- rbind(dat_together, dat_sub)
 
 #######################################################################
 #writing out the dataframe
-write.csv(dat_together, file = "CountsWithFstAbovePt4.csv")
-```
-# Going through the process looking for ASSIM vs. ANC with Fst>0.3
-Finding out which positions have a high enough Fst for each lineage. The only thing I would change in the script is which column we're looking in (line: dat_subset <- dat[dat$V11>0.3,]) and then the output file name.
-```
-### Packages Required 
-require(data.table)
-
-#read in the data
-dat <- fread('ASSIMandANC.fst')
-
-ccol <- ncol(dat)
-
-for (i in 6:ccol){
-  dat[[i]] <- gsub(".*=","", dat[[i]])
-}
-
-for (i in 6:ccol){
-  dat[[i]] <- as.numeric(dat[[i]])
-}
-
-dat_subset <- dat[dat$V11>0.3,]
-
-dat_subset$V12 <- paste(dat_subset$V1,dat_subset$V2,sep="_")
-
-write.table(dat_subset$V12, file="ASSIMandANC6_abovept3.txt", row.names=FALSE, quote=FALSE, col.names = FALSE)
-```
-Next, you make subsets of the sync files based on the positions from the lists you just generated. I subset based on the list first and then subset the columns I need. I know what columns of the sync file I need by looking at the numbered list [here](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/PoPoolation.md). So the sync file has four extra columns in the front and then it lists out the columns in this order. So just subset the first four columns and the two from your comparison.
-```
-#first parts is a grep from the fst list to the sync file and the subsetting the columns. 
-#for assim 1
-grep -Fwf ../fst/ASSIMandANC1_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $24}' > ASSIMandANC1_abovept3_columns.sync
-#for assim 2
-grep -Fwf ../fst/ASSIMandANC2_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $25}' > ASSIMandANC2_abovept3_columns.sync
-
-grep -Fwf ../fst/ASSIMandANC3_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $26}' > ASSIMandANC3_abovept3_columns.sync
-
-grep -Fwf ../fst/ASSIMandANC4_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $27}' > ASSIMandANC4_abovept3_columns.sync
-
-grep -Fwf ../fst/ASSIMandANC5_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $28}' > ASSIMandANC5_abovept3_columns.sync
-
-grep -Fwf ../fst/ASSIMandANC6_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $29}' > ASSIMandANC6_abovept3_columns.sync
-
+write.csv(dat_together, file = "CountsWithFstAbovePt3.csv")
 ```
