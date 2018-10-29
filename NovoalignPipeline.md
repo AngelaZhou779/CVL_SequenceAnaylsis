@@ -54,3 +54,51 @@ done
 So what I actually did was create about 12 scripts for my stuff to get it to run in a reasonable time (didn't want to take up too much space on Brian's machine and didn't want to wait a month). So I split up the trimmed data into A and B since I had the two days. And I put the ancestor files into a different folder (I also put UP_G10 in a different folder). So the groups were: A_ANC, B_ANC, A_UP, B_UP, A_UP_G10, B_UP_G10, A_DOWN, B_DOWN, A_LAAD, B_LAAD, A_GA, B_GA. 
 
 So to save space, I unzipped the files as I needed them. I then ran novoalign and re-zipped the files. I have so much data so I couldn't keep the SAM files around for long. Just like I did with BWA, I ended up converting them to BAM right away and getting rid of the SAM files to save space. 
+# Merge
+## Merging the lanes 
+Basically the same scripts as for BWA but not worrying about single end stuff
+
+Lanes 1 to 4:
+```
+#!/bin/bash
+
+project_name=cvl
+project_dir=/home/sarahm/cvl
+
+bam_dir=${project_dir}/storage/novo_dir/bam_dir
+merged=${project_dir}/storage/novo_dir/merged
+
+files=(${bam_dir}/*_L001_novo.bam)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _L001_novo.bam`
+samtools merge ${merged}/${base}_merged_novo.bam \
+  ${bam_dir}/${base}_L001_novo.bam \
+  ${bam_dir}/${base}_L002_novo.bam \
+  ${bam_dir}/${base}_L003_novo.bam \
+  ${bam_dir}/${base}_L004_novo.bam
+done
+```
+Lanes 5 to 8:
+```
+#!/bin/bash
+
+project_name=cvl
+project_dir=/home/sarahm/cvl
+
+bam_dir=${project_dir}/storage/novo_dir/bam_dir
+merged=${project_dir}/storage/novo_dir/merged
+
+files=(${bam_dir}/*_L005_novo.bam)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _L005_novo.bam`
+samtools merge ${merged}/${base}_merged_novo.bam \
+  ${bam_dir}/${base}_L005_novo.bam \
+  ${bam_dir}/${base}_L006_novo.bam \
+  ${bam_dir}/${base}_L007_novo.bam \
+  ${bam_dir}/${base}_L008_novo.bam
+done
+```
