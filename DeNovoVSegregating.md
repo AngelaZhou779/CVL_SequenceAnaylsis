@@ -92,7 +92,6 @@ sum(allele_df$minor_anc==TRUE)
 
 ```
 
-
 So this is the script I actually ran when looking at the assimilated and ancestor files with Fst>0.4:
 ```
 require('tidyr')
@@ -185,4 +184,29 @@ dat_together <- rbind(dat_together, dat_sub)
 #######################################################################
 #writing out the dataframe
 write.csv(dat_together, file = "CountsWithFstAbovePt4.csv")
+```
+# Going through the process looking for ASSIM vs. ANC with Fst>0.3
+Finding out which positions have a high enough Fst for each lineage. The only thing I would change in the script is which column we're looking in (line: dat_subset <- dat[dat$V11>0.3,]) and then the output file name.
+```
+### Packages Required 
+require(data.table)
+
+#read in the data
+dat <- fread('ASSIMandANC.fst')
+
+ccol <- ncol(dat)
+
+for (i in 6:ccol){
+  dat[[i]] <- gsub(".*=","", dat[[i]])
+}
+
+for (i in 6:ccol){
+  dat[[i]] <- as.numeric(dat[[i]])
+}
+
+dat_subset <- dat[dat$V11>0.3,]
+
+dat_subset$V12 <- paste(dat_subset$V1,dat_subset$V2,sep="_")
+
+write.table(dat_subset$V12, file="ASSIMandANC6_abovept3.txt", row.names=FALSE, quote=FALSE, col.names = FALSE)
 ```
