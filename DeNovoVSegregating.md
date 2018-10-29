@@ -210,3 +210,20 @@ dat_subset$V12 <- paste(dat_subset$V1,dat_subset$V2,sep="_")
 
 write.table(dat_subset$V12, file="ASSIMandANC6_abovept3.txt", row.names=FALSE, quote=FALSE, col.names = FALSE)
 ```
+Next, you make subsets of the sync files based on the positions from the lists you just generated. I subset based on the list first and then subset the columns I need. I know what columns of the sync file I need by looking at the numbered list [here](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/PoPoolation.md). So the sync file has four extra columns in the front and then it lists out the columns in this order. So just subset the first four columns and the two from your comparison.
+```
+#first parts is a grep from the fst list to the sync file and the subsetting the columns. 
+#for assim 1
+grep -Fwf ../fst/ASSIMandANC1_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $24}' > ASSIMandANC1_abovept3_columns.sync
+#for assim 2
+grep -Fwf ../fst/ASSIMandANC2_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $25}' > ASSIMandANC2_abovept3_columns.sync
+
+grep -Fwf ../fst/ASSIMandANC3_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $26}' > ASSIMandANC3_abovept3_columns.sync
+
+grep -Fwf ../fst/ASSIMandANC4_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $27}' > ASSIMandANC4_abovept3_columns.sync
+
+grep -Fwf ../fst/ASSIMandANC5_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $28}' > ASSIMandANC5_abovept3_columns.sync
+
+grep -Fwf ../fst/ASSIMandANC6_abovept3.txt new_combinedcolumn.sync | awk '{print $1, $2, $3, $4, $5, $29}' > ASSIMandANC6_abovept3_columns.sync
+
+```
