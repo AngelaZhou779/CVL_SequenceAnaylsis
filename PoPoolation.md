@@ -228,3 +228,5 @@ awk '{print $1, $2, $3, $4, $5, $386}' all_chrom.fst > UPandASSIM6.fst
 #For UP and ASSIMILATED together
 awk '{print $1, $2, $3, $4, $5, $228, $270, $308, $326, $358, $386}' all_chrom.fst > UPandASSIMtogether.fst
 ```
+# CMH test
+This also usues popoolation scripts. I stated a separate md for this [here](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/CMH.md)
