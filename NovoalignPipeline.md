@@ -124,3 +124,65 @@ samtools merge ${merged_all}/${new_base}_merged_all_novo.bam \
   ${merged}/B_${new_base}_merged_novo.bam
 done
 ```
+## Merge the Ancestor
+```
+#!/bin/bash
+
+project_name=cvl
+project_dir=/home/sarahm/cvl
+
+merged_all=${project_dir}/storage/novo_dir/merged_all
+
+samtools merge ${merged_all}/ANCESTOR_ALL_merged_all_novo.bam \
+  ${merged_all}/ANCESTOR_R1_ATTACTCG-TATAGCCT_merged_all_novo.bam \
+  ${merged_all}/ANCESTOR_R2_ATTACTCG-ATAGAGGC_merged_all_novo.bam \
+  ${merged_all}/ANCESTOR_R3_ATTACTCG-CCTATCCT_merged_all_novo.bam \
+  ${merged_all}/ANCESTOR_R4_ATTACTCG-GGCTCTGA_merged_all_novo.bam
+```
+I then moved the individual ancestor replicates to a sepearate folder named merged_all_ancestor
+
+# Removing Duplicates
+## Sort with Picard
+Must do this before removing duplicates
+```
+#!/bin/bash
+
+project_name=cvl
+project_dir=/home/sarahm/cvl/storage/novo_dir
+
+pic=/usr/local/picard-tools/picard-tools-1.131/picard.jar
+ 
+merged=${project_dir}/merged_all
+sort_dir=${project_dir}/sort_dir
+tmp=${project_dir}/tmp
+
+
+files=(${merged}/*)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} .bam`
+java -Xmx2g -Djava.io.tmpdir=${tmp} -jar ${pic} SortSam I= ${merged}/${base}.bam O= ${sort_dir}/${base}.sort.bam VALIDATION_STRINGENCY=SILENT SO=coordinate TMP_DIR=${tmp}
+done
+```
+## Removing the duplicates with Picard
+```
+#!/bin/bash
+
+project_name=cvl
+project_dir=/home/sarahm/cvl/storage/novo_dir
+
+pic=/usr/local/picard-tools/picard-tools-1.131/picard.jar
+ 
+sort_dir=${project_dir}/sort_dir
+tmp=${project_dir}/tmp
+rmd_dir=${project_dir}/rmd_dir
+
+files=(${sort_dir}/*)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} .sort.bam`
+java -Xmx2g -jar ${pic} MarkDuplicates I= ${sort_dir}/${base}.sort.bam O= ${rmd_dir}/${base}.rmd.sort.bam M= ${rmd_dir}/dupstat.txt VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES= true
+done
+```
