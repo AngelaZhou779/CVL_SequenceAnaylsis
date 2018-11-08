@@ -45,7 +45,7 @@ dat$ref <- as.factor(dat$ref)
 dat$newp <- -log10(dat$p)
 write.table(dat, file = "UP_ASSIM_logp.txt", sep = "\t", row.names = FALSE)
 ```
-Actually plotting the data. This will require logging into Brian's machine with the -X flag. For making the order of chromosomes you can refer to the scripts in the [PoPoolation markdown](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/PoPoolation.md) for more details.
+Actually plotting the data. This will require logging into Brian's machine with the -X flag (note you have to do the -X flag when you log onto the head). For making the order of chromosomes you can refer to the scripts in the [PoPoolation markdown](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/PoPoolation.md) for more details.
 ```
 ### Packages Required 
 require(data.table)
