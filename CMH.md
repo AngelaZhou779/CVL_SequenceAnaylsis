@@ -28,3 +28,66 @@ cmh_gwas=/usr/local/popoolation/export/cmh2gwas.pl
 
 perl ${cmh_gwas} --input ${sync_dir}/UP_ASSIM_new.cmh --output ${sync_dir}/UP_ASSIM_new.gwas --min-pvalue 1.0e-20
 ```
+# Plotting
+So I'm thinking the best way to plot this is to actually have the -log10(p) value so I'm going to separate the p values from the original cmh file instead of doing the gwas thing
+```
+cat UP_ASSIM_new.cmh | awk 'BEGIN{OFS="\t"}{print $1,$2,$3,$16}' > UP_ASSIM_pvalues.cmh
+```
+I'm then going to upload this to R and make the -log10(p) values in a new column for plotting
+
+Setting up the data:
+```
+require(data.table)
+dat <- fread("UP_ASSIM_pvalues.cmh")
+colnames(dat) <- c("chr","pos","ref","p")
+dat$chr <- as.factor(dat$chr)
+dat$ref <- as.factor(dat$ref)
+dat$newp <- -log10(dat$p)
+write.table(dat, file = "UP_ASSIM_logp.txt", sep = "\t", row.names = FALSE)
+```
+Actually plotting the data. This will require logging into Brian's machine with the -X flag. For making the order of chromosomes you can refer to the scripts in the [PoPoolation markdown](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/PoPoolation.md) for more details.
+```
+### Packages Required 
+require(data.table)
+require(ggplot2)
+
+### Read in the .fst file into R (requires data.table)
+dat <- fread("UP_ASSIM_logp.txt")
+
+#this part below is so you change the order of the chromosomes to make a nice map going across the x-axis. I need to check and see which order I had my chromosomes in by pulling out rows of data equal to letters below. So I'd look at ddat2[1,] then if the first value is on X I would look at ddat2[1 + l,]. This is how you choose the order of the chromosomes as you will see below.
+g <- nrow(dat[which(dat$chr=='2L'),])
+h <- nrow(dat[which(dat$chr=='2R'),])
+i <- nrow(dat[which(dat$chr=='3L'),])
+j <- nrow(dat[which(dat$chr=='3R'),])
+k <- nrow(dat[which(dat$chr=='4'),])
+l <- nrow(dat[which(dat$chr=='X'),])
+
+#NOTE: Chaging Orders:
+#To change the order for X to be first:
+# need to figure out the order the chromosomes are put in the data frame to give each the correct number in the sequence
+
+#the order 2L, X, 3L, 4, 2R, 3R
+dat$number <- c((l+1):(l+g),
+                  (1:l),
+                  (l+g+h+1):(l+g+h+i),
+                  (l+g+h+i+j+1):(l+g+h+i+j+k),
+                  (l+g+1):(l+g+h),
+                  (l+g+h+i+1):(l+g+h+i+j)) 
+### PLOTS:
+
+plt <-  ggplot(data = dat, aes(x=number, y=newp, color=chr))
+plt2 <- plt + 
+  geom_point(size=0.5, show.legend = F) + 
+  theme(panel.background = element_blank()) +
+  xlab("Chromosome") +
+  ylab(expression(-log[10](p))) +
+  scale_x_discrete(limits=c(l/2, l+(g/2), (l+g+(h/2)), (l+g+h+(i/2)), (l+g+h+i+(j/2)), (l+g+h+i+j+(k/2))), labels = c("X","2L", "2R", '3L', '3R', "4")) +
+  scale_colour_manual(values=c("#56B4E9", "#E69F00", 'grey30', 'grey46', 'wheat3', 'lemonchiffon4')) +
+  theme(text = element_text(size=20),
+        axis.text.x= element_text(size=15), 
+        axis.text.y= element_text(size=15))
+
+png("UP_ASSIM_cmh_2.png",width=1060,height=412,units="px")
+plt2
+dev.off()
+```
