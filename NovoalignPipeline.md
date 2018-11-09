@@ -186,3 +186,22 @@ base=`basename ${name} .sort.bam`
 java -Xmx2g -jar ${pic} MarkDuplicates I= ${sort_dir}/${base}.sort.bam O= ${rmd_dir}/${base}.rmd.sort.bam M= ${rmd_dir}/dupstat.txt VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES= true
 done
 ```
+# Quality Control again
+Checking the bam files again
+```
+#!/bin/bash
+
+project_name=cvl
+project_dir=/home/sarahm/cvl/storage/novo_dir
+ 
+rmd_dir=${project_dir}/rmd_dir
+final_bam=${project_dir}/final_bam
+
+files=(${rmd_dir}/*.rmd.sort.bam)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} .rmd.sort.bam`
+samtools view -q 20 -F 0x0004 -b ${rmd_dir}/${base}.rmd.sort.bam > ${final_bam}/${base}.final.bam
+done
+```
