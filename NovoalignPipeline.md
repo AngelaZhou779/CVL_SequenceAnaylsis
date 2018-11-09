@@ -205,3 +205,57 @@ base=`basename ${name} .rmd.sort.bam`
 samtools view -q 20 -F 0x0004 -b ${rmd_dir}/${base}.rmd.sort.bam > ${final_bam}/${base}.final.bam
 done
 ```
+# Indel Realingment
+So once again, some of these steps have been done already because I did it for when I did the BWA mapper.
+
+First is making a dictionary of the reference genome. You can see how it was done in the [main markdown file](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/MasterNotes.md)
+
+Next, making readgroups
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage/novo_dir
+
+#Path to Picard
+pic=/usr/local/picard-tools/picard-tools-1.131/picard.jar
+
+#Path to .bam files
+final=${project_dir}/final_bam
+
+files=(${final}/*_merged_all_novo.final.bam)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _merged_all_novo.final.bam`
+
+java -jar ${pic} AddOrReplaceReadGroups I=${final}/${base}_merged_all_novo.final.bam \
+  O=${final}/${base}_RG.bam \
+  RGID=L001_L008 \
+  RGLB=library1 \
+  RGPL=illumina \
+  RGPU=None \
+  RGSM=${base}
+
+done
+```
+Indexing the bam files
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage/novo_dir
+
+#Path to input directory
+input=${project_dir}/final_bam
+
+files=(${input}/*_RG.bam)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _RG.bam`
+
+samtools index ${input}/${base}_RG.bam &
+
+done
+```
