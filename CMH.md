@@ -39,6 +39,7 @@ Setting up the data:
 ```
 require(data.table)
 dat <- fread("UP_ASSIM_pvalues.cmh")
+#dat <- dat[c("V1","V2","V3","V16")] #if you are reading in the original cmh and must subset the columns to get just p values
 colnames(dat) <- c("chr","pos","ref","p")
 dat$chr <- as.factor(dat$chr)
 dat$ref <- as.factor(dat$ref)
