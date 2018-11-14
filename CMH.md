@@ -91,3 +91,22 @@ png("UP_ASSIM_cmh_2.png",width=1060,height=412,units="px")
 plt2
 dev.off()
 ```
+### UP versus ANCESTOR
+So I subset the columns into a separate sync file
+```
+cat new_combinedcolumn.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $5,$13, $5,$15, $5,$17, $5,$18, $5,$20, $5,$22}' > ANC_UP.sync
+```
+But I know this is kinda a false comparison because you're comparing each of the UP selection populations to the ancestor as if the ancestor is different replicates. So what I did is subsample down to a coverage. I did sample without replacement basically hoping for different sets of allels to be chosen in each of the repeated ancestor column
+
+I tried subsampling to 100x coverage but that turns the file that was once 117 million lines into a file with 2,000+ lines. This is because it tosses out any line that doesn't meet the 100x coverage for all of the 12 populations.
+
+I then subsampled to a coverage of 50 which left me with a file of 45,731 lines which I feel is enough to start the cmh comparison. Subsetting script below
+```
+#! /bin/bash
+
+sync_dir=/home/sarahm/cvl/storage/sync_files
+subsample=/usr/local/popoolation/subsample-synchronized.pl
+
+perl ${subsample} --input ${sync_dir}/ANC_UP.sync --output ${sync_dir}/ANC_UP_subsample50.sync --target-coverage 50 --max-coverage 150 --method withoutreplace
+```
+then running the cmh test and doign the -log10(p) as above. 
