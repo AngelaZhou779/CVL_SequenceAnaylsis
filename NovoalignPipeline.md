@@ -259,3 +259,110 @@ samtools index ${input}/${base}_RG.bam &
 
 done
 ```
+The the intervals script
+```
+#!/bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage/novo_dir
+
+#Path to input directory
+final_bam=${project_dir}/final_bam
+
+#Path to output directory
+gatk_dir=${project_dir}/gatk_dir
+
+#Variable for reference genome (non-zipped)
+index_dir=/home/sarahm/cvl/index_dir
+ref_genome=${index_dir}/dmel-all-chromosome-r5.57_2.fasta
+
+#Path to GATK
+gatk=/usr/local/gatk/GenomeAnalysisTK.jar
+
+
+files=(${final_bam}/*_RG.bam)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _RG.bam`
+
+java -Xmx32g -jar ${gatk} -I ${final_bam}/${base}_RG.bam -R ${ref_genome} \
+  -T RealignerTargetCreator \
+  -o ${gatk_dir}/${base}.intervals
+
+done
+
+```
+Then the actual good stuff of realigning around the indels
+```
+#!/bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage/novo_dir
+
+#Path to input directory
+final_bam=${project_dir}/final_bam
+
+#Path to output directory
+gatk_dir=${project_dir}/gatk_dir
+
+#Variable for reference genome (non-zipped)
+index_dir=/home/sarahm/cvl/index_dir
+ref_genome=${index_dir}/dmel-all-chromosome-r5.57_2.fasta
+
+#Path to GATK
+gatk=/usr/local/gatk/GenomeAnalysisTK.jar
+
+
+files=(${final_bam}/*_RG.bam)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _RG.bam`
+
+java -Xmx32g -jar ${gatk} -I ${final_bam}/${base}_RG.bam -R ${ref_genome} \
+  -T IndelRealigner -targetIntervals ${gatk_dir}/${base}.intervals \
+  -o ${gatk_dir}/${base}_realigned.bam
+
+done
+```
+# Making an mpileup
+So just remember that this is a huge flippin' file and you should make the sunc as soon as possible and delete this
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage/novo_dir
+#Variable for project name is so that we have a unique name to identify this single file later
+project_name=cvl_novo_mapped
+
+
+#Variable for reference genome (non-zipped)
+index_dir=/home/sarahm/cvl/index_dir
+ref_genome=${index_dir}/dmel-all-chromosome-r5.57_2.fasta
+
+
+# Path to .bam files from GATK
+gatk=${project_dir}/gatk_dir
+
+
+samtools mpileup -B -Q 0 -f ${ref_genome} ${gatk}/*.bam > ${gatk}/${project_name}.gatk.mpileup
+```
+# Sync file
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage/novo_dir
+
+#Variable for project name is so that we have a unique name to identify this single file later
+project_name=cvl_novo_mapped
+
+# Path to .bam files from GATK
+gatk=${project_dir}/gatk_dir
+sync=${project_dir}/sync_files
+
+sync=/usr/local/popoolation/mpileup2sync.jar
+
+java -ea -Xmx32g -jar ${sync} --input ${gatk}/${project_name}.gatk.mpileup --output ${sync}/${project_name}.gatk.sync
+```
