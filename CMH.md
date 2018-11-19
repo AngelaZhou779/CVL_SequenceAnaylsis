@@ -111,3 +111,30 @@ subsample=/usr/local/popoolation/subsample-synchronized.pl
 perl ${subsample} --input ${sync_dir}/ANC_UP.sync --output ${sync_dir}/ANC_UP_subsample50.sync --target-coverage 50 --max-coverage 150 --method withoutreplace
 ```
 then running the cmh test and doign the -log10(p) as above. 
+# Other comparisons
+## UP vs. DOWN
+This comparison is hard to do because we do not have biological replicates so instead I have compared the 6 up replicates to the tree down replicates in this pattern:
+ - UP1 - DOWN1
+ - UP2 - DOWN2
+ - UP3 - DOWN3
+ - UP4 - DOWN1
+ - UP5 - DOWN2
+ - UP6 - DOWN3
+```
+cat new_combinedcolumn.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $13,$6, $15,$8, $17,$11, $18,$6, $20,$8, $22,$11}' > UP_DOWN.sync
+```
+## ANC vs. either DOWN or LAAD
+The idea behind this is that we can substract these points from the ANC vs. UP data to find loci important to the CVL phenotype (and not lab adaptation or heat shocks/time sync). 
+    (ANCvUP) - (ANCvDOWN) - (ANCvLAAD) = loci of interest
+    
+```
+cat new_combinedcolumn.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $5,$6, $5,$8, $5,$11}' > ANC_DOWN.sync
+cat new_combinedcolumn.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $5,$31, $5,$33, $5,$34}' > ANC_LAAD.sync
+```
+We'll also have to subsample these two. I am also redoing the UP vs. ANC comparison for this formula above, because I think I may have used the subsample script in a different way then makes sense for this. Ian is very sure we should be doing the fraction method (meaning a equal proportion of the original count data) instead of the method I used above which is sampling without replacement (that was doen to sort of creat different subsamples of the original ancestor and not compare each replicate treatment to the same pop, now we are doign this and I'm not sure why we don't look at just the average Fst for the treatment replicates compared to the ancestor if we are doing it this way)
+```
+perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/ANC_DOWN.sync --output /home/sarahm/cvl/storage/sync_files/ANC_DOWN_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300 --method fraction
+perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/ANC_LAAD.sync --output /home/sarahm/cvl/storage/sync_files/ANC_LAAD_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300 --method fraction
+
+perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/ANC_UP.sync --output /home/sarahm/cvl/storage/sync_files/ANC_UP_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300,650,300,650,300,650,300 --method fraction
+```
