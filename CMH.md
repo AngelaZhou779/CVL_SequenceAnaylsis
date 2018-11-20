@@ -123,6 +123,11 @@ This comparison is hard to do because we do not have biological replicates so in
 ```
 cat new_combinedcolumn.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $13,$6, $15,$8, $17,$11, $18,$6, $20,$8, $22,$11}' > UP_DOWN.sync
 ```
+CMH script
+```
+#UP_DOWN cmh
+perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/UP_DOWN.sync --output /home/sarahm/cvl/storage/sync_files/UP_DOWN.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
+```
 ## ANC vs. either DOWN or LAAD
 The idea behind this is that we can substract these points from the ANC vs. UP data to find loci important to the CVL phenotype (and not lab adaptation or heat shocks/time sync). 
     (ANCvUP) - (ANCvDOWN) - (ANCvLAAD) = loci of interest
@@ -137,4 +142,17 @@ perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/s
 perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/ANC_LAAD.sync --output /home/sarahm/cvl/storage/sync_files/ANC_LAAD_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300 --method fraction
 
 perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/ANC_UP.sync --output /home/sarahm/cvl/storage/sync_files/ANC_UP_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300,650,300,650,300,650,300 --method fraction
+```
+Note: With the new maximum coverages set the way they are, we keep a lot more data points! I didn't realize before but having the max coverage set at a certain point cut each line of data with more than that coverage for any population
+
+Running the cmh scripts
+```
+#ANC_UP cmh 
+perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/ANC_UP_subsample50.sync --output /home/sarahm/cvl/storage/sync_files/ANC_UP_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
+
+#ANC_DOWN cmh 
+perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/ANC_DOWN_subsample50.sync --output /home/sarahm/cvl/storage/sync_files/ANC_DOWN_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6
+
+#ANC_LAAD cmh 
+perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/ANC_LAAD_subsample50.sync --output /home/sarahm/cvl/storage/sync_files/ANC_LAAD_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6
 ```
