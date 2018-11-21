@@ -93,7 +93,7 @@ plt2
 dev.off()
 ```
 
-*Up vs. Assimilated*
+__*Up vs. Assimilated*__
 ![UP_ASSIM](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Images/UP_ASSIM_cmh.png)
 
 ### UP versus ANCESTOR
@@ -132,7 +132,8 @@ CMH script
 #UP_DOWN cmh
 perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/UP_DOWN.sync --output /home/sarahm/cvl/storage/sync_files/UP_DOWN.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
 ```
-*Up vs. Down*
+
+__*Up vs. Down*__
 ![UP_DOWN](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Images/UP_DOWN_cmh.png)
 ## ANC vs. either DOWN or LAAD
 The idea behind this is that we can substract these points from the ANC vs. UP data to find loci important to the CVL phenotype (and not lab adaptation or heat shocks/time sync). 
@@ -174,9 +175,10 @@ dat$newp <- -log10(dat$p)
 write.table(dat, file = "ANC_LAAD_subsample50_logp.txt", sep = "\t", row.names = FALSE)
 ```
 The different figures found below are for each of the treatment comparisons with the ancestor. I wanted to have a visualization of the data before starting to cut out lines for the above equation to find CVL alleles with the UP lineages.
-*Ancestor vs. Up*
+
+__*Ancestor vs. Up*__
 ![ANC_UP](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Images/ANC_UP_subsample50_cmh.png)
-*Ancestor vs. Down*
+__*Ancestor vs. Down*__
 ![ANC_DOWN](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Images/ANC_DOWN_subsample50_cmh.png)
-*Ancestor vs. LAAD (Lab control)*
+__*Ancestor vs. LAAD (Lab control)*__
 ![ANC_LAAD](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/Images/ANC_LAAD_subsample50_cmh.png)
