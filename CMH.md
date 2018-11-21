@@ -167,4 +167,4 @@ dat$ref <- as.factor(dat$ref)
 dat$newp <- -log10(dat$p)
 write.table(dat, file = "ANC_LAAD_subsample50_logp.txt", sep = "\t", row.names = FALSE)
 ```
-![Alt text](./Iamges/ANC_DOWN_subsample50_cmh.png?raw=true "ANC_DOWN")
+![Alt text](CVL_SequenceAnaylsis/Iamges/ANC_DOWN_subsample50_cmh.png?raw=true "ANC_DOWN")
