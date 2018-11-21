@@ -348,6 +348,38 @@ gatk=${project_dir}/gatk_dir
 
 samtools mpileup -B -Q 0 -f ${ref_genome} ${gatk}/*.bam > ${gatk}/${project_name}.gatk.mpileup
 ```
+The input for the mpileup file was in this order
+1. ANCESTOR
+2. CVL_DOWN_R1
+3. CVL_DOWN_R1_G10
+4. CVL_DOWN_R2
+5. CVL_DOWN_R2_G10
+6. CVL_DOWN_R3_G10
+7. CVL_DOWN_R3
+8. CVL_UP_R1_G10
+9. CVL_UP_R1
+10. CVL_UP_R2_G10
+11. CVL_UP_R2
+12. CVL_UP_R3_G10
+13. CVL_UP_R3
+14. CVL_UP_R4
+15. CVL_UP_R4_G10
+16. CVL_UP_R5
+17. CVL_UP_R5_G10
+18. CVL_UP_R6
+19. CVL_UP_R6_G10
+20. GA_R1
+21. GA_R2
+22. GA_R3
+23. GA_R4
+24. GA_R5
+25. GA_R6
+26. LAAD_R1_G10
+27. LAAD_R1
+28. LAAD_R2_G10
+29. LAAD_R2
+30. LAAD_R3
+31. LAAD_R3_G10
 # Sync file
 ```
 #! /bin/bash
