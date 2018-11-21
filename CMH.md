@@ -156,3 +156,14 @@ perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_fi
 #ANC_LAAD cmh 
 perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/ANC_LAAD_subsample50.sync --output /home/sarahm/cvl/storage/sync_files/ANC_LAAD_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6
 ```
+I then did something such as the R script below to get -log10(p) values for everything
+```
+require(data.table)
+dat <- fread("ANC_LAAD_subsample50.cmh")
+dat <- dat[,c("V1","V2","V3","V10")] #if you are reading in the original cmh and must subset the columns to get just p values
+colnames(dat) <- c("chr","pos","ref","p")
+dat$chr <- as.factor(dat$chr)
+dat$ref <- as.factor(dat$ref)
+dat$newp <- -log10(dat$p)
+write.table(dat, file = "ANC_LAAD_subsample50_logp.txt", sep = "\t", row.names = FALSE)
+```
