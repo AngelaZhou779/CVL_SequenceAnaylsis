@@ -392,9 +392,9 @@ project_name=cvl_novo_mapped
 
 # Path to .bam files from GATK
 gatk=${project_dir}/gatk_dir
-sync=${project_dir}/sync_files
+sync_files=${project_dir}/sync_files
 
 sync=/usr/local/popoolation/mpileup2sync.jar
 
-java -ea -Xmx32g -jar ${sync} --input ${gatk}/${project_name}.gatk.mpileup --output ${sync}/${project_name}.gatk.sync
+java -ea -Xmx32g -jar ${sync} --input ${gatk}/${project_name}.gatk.mpileup --output ${sync_files}/${project_name}.gatk.sync
 ```
