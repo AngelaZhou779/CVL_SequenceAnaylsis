@@ -167,3 +167,62 @@ pdf(paste(title, "_map.pdf", sep=""))
 p2
 dev.off()
 ```
+# Making a line Map of the coverage
+Generating coverage counts for the genome for everything
+```
+#! /bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage
+
+#Path to input directory
+input=${project_dir}/gatk_dir
+output=${project_dir}/cov_dir
+
+files=(${input}/*_realigned.bam)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} _realigned.bam`
+
+samtools depth ${input}/${base}_realigned.bam > ${output}/${base}.coverage
+
+done
+```
+
+Cleaning up the coverage files of all the random stuff
+```
+#!/bin/bash
+
+#Variable for project:
+project_dir=/home/sarahm/cvl/storage
+
+#Path to .sync files
+cov=${project_dir}/cov_dir
+
+
+files=(${cov}/*.coverage)
+for file in ${files[@]}
+do
+name=${file}
+base=`basename ${name} .coverage`
+
+
+grep -v 'Het' ${cov}/${base}.coverage > ${cov}/${base}_less_het.coverage
+
+wait
+
+grep -v 'U' ${cov}/${base}_less_het.coverage > ${cov}/${base}_removed_U_Het.coverage
+
+wait
+
+grep -v 'dmel_mitochondrion_genome' ${cov}/${base}_removed_U_Het.coverage > ${cov}/${base}_main.txt
+
+wait
+
+rm -f ${cov}/${base}_less_het.coverage
+
+rm -f ${cov}/${base}_U_Het.coverage
+
+done
+```
