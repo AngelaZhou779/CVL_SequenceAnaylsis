@@ -67,3 +67,19 @@ grep -w "^4" UPandANC_2.fst > UPandANC_4.fst
 cat UPandANC_4.fst | awk '{print $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11}' > UPandANC_4_short.fst
 ```
 
+# Looking at Fst for the UP selection lineages at either generation 10 or 24
+
+```
+##Fst at gen 10
+cat new_combinedcolumn.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $12,$14,$16,$19,$21,$23}' > UP_G10.sync
+
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/sync_files/UP_G10.sync --output /home/sarahm/cvl/storage/fst/UP_G10.fst --suppress-noninformative --min-count 4 --min-coverage 4 --max-coverage 300 --min-covered-fraction 1 --window-size 1 --step-size 1 --pool-size 200
+
+#Fst at gen 24
+cat new_combinedcolumn.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $13,$15,$17,$18,$20,$22}' > UP_G24.sync
+
+perl /usr/local/popoolation/fst-sliding.pl --input /home/sarahm/cvl/storage/sync_files/UP_G24.sync --output /home/sarahm/cvl/storage/fst/UP_G24.fst --suppress-noninformative --min-count 4 --min-coverage 4 --max-coverage 300 --min-covered-fraction 1 --window-size 1 --step-size 1 --pool-size 200
+```
+I then average the Fst for each position in the genome for either gen 10 or gen 24. Then this is probably not right, but also not wrong, I decided to just take the average of all the Fst at each position:
+  - Fst for Gen 10 = 0.02716011
+  - Fst for Gen 24 = 0.03714216
