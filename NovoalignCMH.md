@@ -44,7 +44,7 @@ The UP and DOWN are compared to each other unequally in this pattern
 # UP_ASSIM
 cat new_combinedcolumn_novo.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $13,$24, $15,$25, $17,$26, $18,$27, $20,$28, $22,$29}' > UP_ASSIM_novo.sync
 
-perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/UP_ASSIM_novo.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/UP_ASSIM_novo_subsample50.sync --target-coverage 50 --max-coverage 300 --method fraction
+perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/UP_ASSIM_novo.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/UP_ASSIM_novo_subsample50.sync --target-coverage 50 --max-coverage 300 --method fraction
 
 perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/UP_ASSIM_novo_subsample50.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/UP_ASSIM_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
 
@@ -52,28 +52,28 @@ perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/novo_di
 #ANC_UP
 cat new_combinedcolumn_novo.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $5,$13, $5,$15, $5,$17, $5,$18, $5,$20, $5,$22}' > ANC_UP_novo.sync
 
-perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_UP_novo.sync.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_UP_novo_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300,650,300,650,300,650,300 --method fraction
+perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_UP_novo.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_UP_novo_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300,650,300,650,300,650,300 --method fraction
 
-perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_UP_novo_subsample50.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_UP_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
+perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_UP_novo_subsample50.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_UP_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
 
 #ANC_DOWN
 cat new_combinedcolumn_novo.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $5,$6, $5,$8, $5,$11}' > ANC_DOWN_novo.sync
 
-perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_DOWN_novo.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_DOWN_novo_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300 --method fraction
+perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_DOWN_novo.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_DOWN_novo_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300 --method fraction
 
-perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_DOWN_novo_subsample50.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_DOWN_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6
+perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_DOWN_novo_subsample50.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_DOWN_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6
 
 #ANC_LAAD
 cat new_combinedcolumn_novo.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $5,$31, $5,$33, $5,$34}' > ANC_LAAD_novo.sync
 
-perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_LAAD_novo.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_LAAD_novo_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300 --method fraction
+perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_LAAD_novo.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_LAAD_novo_subsample50.sync --target-coverage 50 --max-coverage 650,300,650,300,650,300 --method fraction
 
-perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_LAAD_novo_subsample50.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/ANC_LAAD_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6
+perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_LAAD_novo_subsample50.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/ANC_LAAD_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6
 
 #UP_DOWN
 cat new_combinedcolumn_novo.sync | awk 'BEGIN{OFS="\t"}{print $2,$3,$4, $13,$6, $15,$8, $17,$11, $18,$6, $20,$8, $22,$11}' > UP_DOWN_novo.sync
 
-perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/UP_DOWN_novo.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/UP_DOWN_novo_subsample50.sync --target-coverage 50 --max-coverage 300 --method fraction
+perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/UP_DOWN_novo.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/UP_DOWN_novo_subsample50.sync --target-coverage 50 --max-coverage 300 --method fraction
 
-perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/sync_files/novo_dir/UP_DOWN_novo_subsample50.sync --output /home/sarahm/cvl/storage/sync_files/novo_dir/UP_DOWN_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
+perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/UP_DOWN_novo_subsample50.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/UP_DOWN_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
 ```
