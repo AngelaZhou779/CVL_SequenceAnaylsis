@@ -398,3 +398,7 @@ sync=/usr/local/popoolation/mpileup2sync.jar
 
 java -ea -Xmx32g -jar ${sync} --input ${gatk}/${project_name}.gatk.mpileup --output ${sync_files}/${project_name}.gatk.sync
 ```
+
+# Futher Steps
+
+[CMH stuff](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/NovoalignCMH.md)
