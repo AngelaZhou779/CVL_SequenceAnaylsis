@@ -77,3 +77,14 @@ perl /usr/local/popoolation/subsample-synchronized.pl --input /home/sarahm/cvl/s
 
 perl /usr/local/popoolation/cmh-test.pl --input /home/sarahm/cvl/storage/novo_dir/sync_files/UP_DOWN_novo_subsample50.sync --output /home/sarahm/cvl/storage/novo_dir/sync_files/UP_DOWN_novo_subsample50.cmh --min-count 12 --min-coverage 50 --max-coverage 200 --population 1-2,3-4,5-6,7-8,9-10,11-12
 ```
+Making text files with the log10(p) values for each comparison
+```
+require(data.table)
+dat <- fread("ANC_UP_novo_subsample50.cmh")
+dat <- dat[,c("V1","V2","V3","V16")] 
+colnames(dat) <- c("chr","pos","ref","p")
+dat$chr <- as.factor(dat$chr)
+dat$ref <- as.factor(dat$ref)
+dat$newp <- -log10(dat$p)
+write.table(dat, file = "ANC_UP_novo_subsample50_logp.txt", sep = "\t", row.names = FALSE)
+```
