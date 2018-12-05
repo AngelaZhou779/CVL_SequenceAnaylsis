@@ -98,3 +98,6 @@ head(ddat2)
 write.csv(ddat2, file = "UPandANC_novo_fst.csv", row.names = FALSE)
 ```
 I then want to write a script that compares the Fst from the novo alignment and BWA alignment and takes the LOWEST value of either mapper as the Fst for that position. This way we are conservative in calling positions.
+
+
+# Combine Fst for Novoalign and BWA can be found [here](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/CombineFst.md)
