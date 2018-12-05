@@ -67,3 +67,34 @@ awk '{print $1, $2, $3, $4, $5, $228, $270, $308, $326, $358, $386}' all_chrom_n
 ```
 
 Then I will remove all the random stuff from each comparison and read average the data
+
+
+So below is the code for making the csv which contain only the mean Fst and info for each position. 
+
+```
+# Fst stuff 
+require(data.table)
+
+ddat2 <- fread('UPandANC_novo.fst')
+head(ddat2)
+ccol <- ncol(ddat2)
+for (i in 6:ccol){
+  ddat2[[i]] <- gsub(".*=","", ddat2[[i]])
+}
+for (i in 6:ccol){
+  ddat2[[i]] <- as.numeric(ddat2[[i]])
+}
+ddat2$meanFst <- rowMeans(subset(ddat2, select = c(6:ccol)), na.rm = TRUE)
+ddat2 <- ddat2[ddat2$meanFst!='NaN',]
+head(ddat2)
+
+
+#####YOU WILL NEED TO CHANGE THE LAST NUMBER HERE
+ddat2 <- ddat2[,c(1,2,3,4,5,12)]
+
+colnames(ddat2) <- c('chr', 'window', "num", 'frac', 'meanCov','meanFst')
+head(ddat2)
+
+write.csv(ddat2, file = "UPandANC_novo_fst.csv", row.names = FALSE)
+```
+I then want to write a script that compares the Fst from the novo alignment and BWA alignment and takes the LOWEST value of either mapper as the Fst for that position. This way we are conservative in calling positions.
