@@ -1,4 +1,4 @@
-#Logistic Regression
+# Logistic Regression
 ## File Set-Up
 We only care about the sites that are polymorphic across the lineages. Using shell commands to speed the process up, we want to keep only positions that have at least 2 alleles represeted among the lineages. If the allele is consistent among all lineages, there is no reason to consider it. 
 
