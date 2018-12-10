@@ -48,3 +48,7 @@ awk 'gsub(/:/,"\t")' cvl_bwa_mapped.gatk.sync | awk '{$190 = $4+$10+$16+$22+$28+
 Okay, seems to be working!
 
 Next thing is to separate the columns again and only print out a list that has the chromosome and position data so we know how to filter the other files.
+```
+awk 'gsub(/_/,"\t")' cvl_bwa_polymorphicSites.sync | awk '{print $2"_"$3}' > cvl_bwa_polymorphicSites_list.txt
+```
+Next, we'll filter the actual sync file based on this list we have
