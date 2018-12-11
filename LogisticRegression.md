@@ -52,3 +52,12 @@ Next thing is to separate the columns again and only print out a list that has t
 awk 'gsub(/_/,"\t")' cvl_bwa_polymorphicSites.sync | awk '{print $2"_"$3}' > cvl_bwa_polymorphicSites_list.txt
 ```
 Next, we'll filter the actual sync file based on this list we have
+
+```
+grep -w -F -f cvl_bwa_polymorphicSites_list.txt new_combinedcolumn.sync > cvl_bwa_polymorphicSites_subset.sync
+
+# -w tells grep to match whole words only (i.e. so ABC123 won't also match ABC1234).
+# -F search for fixed strings (plain text) rather than regular expressions
+# -f cvl_bwa_polymorphicSites_list.txt read search patterns from this file (this is the list of positions with polumorphisms)
+# new_combinedcolumn.sync is a the main chromosomes in a sync file with the chr and pos in a single column in the beginning. 
+```
