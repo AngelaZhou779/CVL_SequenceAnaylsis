@@ -61,9 +61,18 @@ grep -w -F -f cvl_bwa_polymorphicSites_list.txt new_combinedcolumn.sync > cvl_bw
 # -f cvl_bwa_polymorphicSites_list.txt read search patterns from this file (this is the list of positions with polumorphisms)
 # new_combinedcolumn.sync is a the main chromosomes in a sync file with the chr and pos in a single column in the beginning. 
 ```
-Now that we have a smaller subset of all the data, we can actually manipulate this is R. I will be making this a long format. 
+So I also went through all the code above for the Novoalign mapper. I am going to look for SNPs that the two mappers have in common now because both sets of the subsetted sync files are still big (around 2.8G which based on my estimation take like 15 days to run). I hope to narrow down the listof accepted sites by looking for sites the two mappers have in common.
 
-Note that I use tidyr which can only be used on Brian's machine with /usr/bin/R
+```
+grep -w -F -f cvl_novo_polymorphicSites_list.txt ../../sync_files/cvl_bwa_polymorphicSites_list.txt > cvl_combinedmapper_polymorphicSites_list.txt
+```
+Then I can use this combined sites list to get new subsets of the sync file fro each mapper
+```
+grep -w -F -f cvl_combinedmapper_polymorphicSites_list.txt new_combinedcolumn_novo.sync > cvl_novo_combinedpolymorphicSites_subset.sync
+grep -w -F -f cvl_combinedmapper_polymorphicSites_list.txt new_combinedcolumn.sync > cvl_bwa_combinedpolymorphicSites_subset.sync
+```
+
+Now that we have a smaller subset of all the data, we can actually manipulate this is R. I will be making this a long format. Note that I use tidyr which can only be used on Brian's machine with /usr/bin/R
 
 ```
 require(tidyr)
