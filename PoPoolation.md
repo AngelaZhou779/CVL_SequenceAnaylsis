@@ -230,3 +230,30 @@ awk '{print $1, $2, $3, $4, $5, $228, $270, $308, $326, $358, $386}' all_chrom.f
 ```
 # CMH test
 This also usues popoolation scripts. I stated a separate md for this [here](https://github.com/srmarzec/CVL_SequenceAnaylsis/blob/master/CMH.md)
+
+# Add deletion mapped to top of Fst plots
+I made a list of the deletions and their start and ends marks for each chromosome and mapped them with Fst data per chromosome. I had to change the coordinates from R6 to R5 but flybase has a converter for that.
+```
+require(ggplot2)
+
+dat <- read.csv("ASSIMandANC_meanFst.csv", header=T)
+del_dat <- read.csv("deletions.csv", header=T)
+
+dat_3L <- dat[dat$chr=="3L",]
+del_dat_3L <- del_dat[del_dat$chr=="3L",]
+maxFst <- max(dat_3L$meanFst) + 0.05
+
+p <- ggplot(dat_3L, aes(y = meanFst, x = window)) + 
+  geom_point(size = 0.5) +
+  theme(panel.background = element_blank()) +
+  labs(y=expression(F[ST]), x="Position on Chromosome") +
+  theme(text = element_text(size=20),
+        axis.text.x= element_text(size=15), 
+        axis.text.y= element_text(size=15)) + 
+  geom_segment(aes(x = start, y = maxFst, xend = end, yend = maxFst), size = 3, color= "red", data = del_dat_3L)
+
+
+pdf("ASSIMandANC_deletions_3L.pdf",width=10,height=3.5)
+p
+dev.off()
+```
