@@ -12,7 +12,7 @@ md5sum -c md5.txt
 This checks if the data uploaded correctly (matched set) using md5sum on the md5.txt file with the sequences (you must be the the raw sequence directory to run this). The flag "-c" reports if checksums match contents of files (OK) or doesn't match (FAILED). 
 
 # Making Directories
-This is not a necessary step, however, I like the ease of having all the directories I may need ready. Paul Knoops (bff) made the original script and I modified it for myself. Some of the things in the script are useful for later and it does keep you organized. 
+This is not a necessary step, however, I like the ease of having all the directories I may need ready. Paul Knoops made the original script and I modified it for myself. Some of the things in the script are useful for later and it does keep you organized. 
 
 Script is:
 
