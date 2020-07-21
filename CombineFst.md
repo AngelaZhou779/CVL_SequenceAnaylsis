@@ -93,6 +93,8 @@ dat_new <- transform(dat_new, minFst = pmin(Fst.x, Fst.y))
 dat_new <- dat_new[,c("chr","window","pop","minFst")]
 head(dat_new)
 
+dat_new <- dat_new %>% separate(pop, c("pop","rep"), "_")
+
 write.csv(dat_new, file = "AncestorComparisons_novo_bwa_combinedFst_win500bp.csv", row.names = FALSE)
 ```
 
